@@ -32,11 +32,11 @@ export default function HomePage() {
             <p className="subtitle">
               Помогаю бизнесу запускать быстрые сайты, автоматизировать рутину и внедрять полезные Telegram-решения.
             </p>
-            <div className="mt-8 flex flex-wrap gap-3">
-              <Link href="/contact" className="btn-primary">
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+              <Link href="/contact" className="btn-primary w-full justify-center sm:w-auto">
                 Оставить заявку
               </Link>
-              <Link href="/portfolio" className="btn-secondary">
+              <Link href="/portfolio" className="btn-secondary w-full justify-center sm:w-auto">
                 Смотреть кейсы
               </Link>
             </div>
@@ -123,10 +123,10 @@ export default function HomePage() {
       <section className="section">
         <div className="container-main">
           <Reveal>
-            <div className="glass rounded-3xl p-8 text-center">
+            <div className="glass rounded-3xl p-6 text-center sm:p-8">
               <h2 className="text-3xl font-bold">Готовы обсудить ваш проект?</h2>
               <p className="mx-auto mt-3 max-w-xl text-gray-300">Опишите задачу, и я предложу лучшее техническое решение.</p>
-              <Link href="/contact" className="btn-primary mt-6">
+              <Link href="/contact" className="btn-primary mt-6 w-full justify-center sm:w-auto">
                 Оставить заявку
               </Link>
             </div>

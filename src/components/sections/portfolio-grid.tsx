@@ -28,7 +28,7 @@ export function PortfolioGrid() {
           <button
             key={item.key}
             onClick={() => setFilter(item.key as Filter)}
-            className={`rounded-full px-4 py-2 text-sm transition ${
+            className={`rounded-full px-3 py-2 text-xs transition sm:px-4 sm:text-sm ${
               filter === item.key
                 ? "bg-[var(--btn-primary-bg)] text-[var(--btn-primary-text)]"
                 : "border border-[var(--btn-secondary-border)] bg-[var(--btn-secondary-bg)] text-[var(--btn-secondary-text)] hover:brightness-95"
@@ -72,7 +72,7 @@ export function PortfolioGrid() {
               animate={{ y: 0, opacity: 1 }}
               exit={{ y: 20, opacity: 0 }}
               onClick={(e) => e.stopPropagation()}
-              className="glass w-full max-w-lg rounded-2xl p-6"
+              className="glass max-h-[84vh] w-full max-w-lg overflow-y-auto rounded-2xl p-5 sm:p-6"
             >
               <h4 className="text-2xl font-semibold">{selected.title}</h4>
               <p className="mt-3 text-gray-300">{selected.description}</p>

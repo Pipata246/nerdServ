@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
+import { Menu, X } from "lucide-react";
 import { navItems } from "@/data/site-data";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
 
@@ -16,6 +17,7 @@ type HeaderProps = {
 
 export function Header({ onOpenLead, theme, onToggleTheme }: HeaderProps) {
   const [visible, setVisible] = useState(true);
+  const [mobileOpen, setMobileOpen] = useState(false);
   const lastScrollY = useRef(0);
 
   useEffect(() => {
@@ -61,16 +63,54 @@ export function Header({ onOpenLead, theme, onToggleTheme }: HeaderProps) {
 
         <div className="flex items-center gap-2">
           <ThemeToggle theme={theme} onToggle={onToggleTheme} />
+          <button
+            onClick={() => setMobileOpen((prev) => !prev)}
+            className="btn-secondary px-3 py-2 text-sm md:hidden"
+            aria-label={mobileOpen ? "Закрыть меню" : "Открыть меню"}
+          >
+            {mobileOpen ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
+          </button>
           <motion.button
             whileHover={{ scale: 1.03 }}
             whileTap={{ scale: 0.98 }}
             onClick={onOpenLead}
-            className="btn-secondary text-sm"
+            className="hidden text-sm md:inline-flex btn-secondary"
           >
             Связаться
           </motion.button>
         </div>
       </div>
+
+      {mobileOpen && (
+        <div
+          className={`container-main mt-2 rounded-2xl p-3 md:hidden ${
+            theme === "dark" ? "border border-white/10 bg-black/75" : "border border-[#1f2937]/20 bg-white/96"
+          }`}
+        >
+          <nav className="flex flex-col gap-1">
+            {navItems.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                onClick={() => setMobileOpen(false)}
+                className="header-link rounded-xl px-3 py-2 text-sm transition hover:bg-black/10"
+              >
+                {item.label}
+              </Link>
+            ))}
+          </nav>
+          <motion.button
+            whileTap={{ scale: 0.98 }}
+            onClick={() => {
+              setMobileOpen(false);
+              onOpenLead();
+            }}
+            className="btn-primary mt-3 w-full justify-center"
+          >
+            Связаться
+          </motion.button>
+        </div>
+      )}
     </header>
   );
 }

@@ -31,7 +31,7 @@ export function LeadModal({ open, onClose }: { open: boolean; onClose: () => voi
             exit={{ scale: 0.9, opacity: 0 }}
             onClick={(e) => e.stopPropagation()}
             onSubmit={submit}
-            className="glass w-full max-w-md space-y-4 rounded-2xl p-6"
+            className="glass max-h-[88vh] w-full max-w-md space-y-4 overflow-y-auto rounded-2xl p-5 sm:p-6"
           >
             <h3 className="text-2xl font-semibold">Оставить заявку</h3>
             <input required placeholder="Имя" className="field-control" />
