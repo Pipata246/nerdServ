@@ -179,6 +179,40 @@ a {
   box-shadow: 0 0 0 1px var(--accent-outline-soft);
 }
 
+.check-control {
+  appearance: none;
+  width: 1rem;
+  height: 1rem;
+  margin-top: 0.125rem;
+  border-radius: 0.25rem;
+  border: 1px solid var(--field-border);
+  background: var(--field-bg);
+  display: inline-grid;
+  place-content: center;
+  cursor: pointer;
+  transition: border-color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+}
+
+.check-control::before {
+  content: "";
+  width: 0.55rem;
+  height: 0.55rem;
+  transform: scale(0);
+  transition: transform 0.16s ease-in-out;
+  clip-path: polygon(14% 44%, 0 59%, 41% 100%, 100% 20%, 84% 6%, 39% 69%);
+  background: var(--btn-primary-text);
+}
+
+.check-control:checked {
+  border-color: var(--btn-primary-border);
+  background: var(--btn-primary-bg);
+  box-shadow: 0 0 0 1px var(--accent-outline-soft);
+}
+
+.check-control:checked::before {
+  transform: scale(1);
+}
+
 .background-stage {
   position: fixed;
   inset: 0;

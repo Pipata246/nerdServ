@@ -196,7 +196,7 @@ export function ContactContent() {
           {errors.message && <p className="mt-1 text-xs text-red-300">{errors.message}</p>}
         </div>
         <label className="flex items-start gap-2 text-xs text-gray-300">
-          <input type="checkbox" name="consent" className="mt-0.5 h-4 w-4 accent-lime-300" />
+          <input type="checkbox" name="consent" className="check-control" />
           <span>Согласен(на) на обработку персональных данных и получение ответа по указанным контактам.</span>
         </label>
         {errors.consent && <p className="-mt-2 text-xs text-red-300">{errors.consent}</p>}
