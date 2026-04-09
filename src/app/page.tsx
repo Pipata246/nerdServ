@@ -184,7 +184,7 @@ export default function HomePage() {
             <TestimonialsSlider />
             <div className="glass rounded-2xl p-5">
               <p className="text-sm text-gray-300">Средняя оценка по обратной связи</p>
-              <p className="mt-2 text-3xl font-bold text-lime-300">5.0 / 5</p>
+              <p className="mt-2 text-3xl font-bold text-lime-300">5 / 5</p>
               <p className="mt-3 text-sm text-gray-300">На основе отзывов по сайтам, ботам и автоматизации процессов.</p>
               <Link href="/contact" className="btn-primary mt-5 w-full justify-center">
                 Обсудить ваш проект
@@ -198,11 +198,21 @@ export default function HomePage() {
         <div className="container-main">
           <Reveal>
             <div className="glass rounded-3xl p-6 text-center sm:p-8">
+              <p className="mb-3 text-xs uppercase tracking-[0.2em] text-lime-300/90">Финальный шаг</p>
               <h2 className="text-3xl font-bold">Готовы обсудить ваш проект?</h2>
               <p className="mx-auto mt-3 max-w-xl text-gray-300">Опишите задачу, и я предложу лучшее техническое решение.</p>
-              <Link href="/contact" className="btn-primary mt-6 w-full justify-center sm:w-auto">
-                Оставить заявку
-              </Link>
+              <div className="mx-auto mt-4 flex max-w-2xl flex-wrap justify-center gap-2 text-xs text-gray-300">
+                <span className="rounded-full border border-lime-300/30 bg-lime-300/10 px-3 py-1">Ответ в течение 1 часа</span>
+                <span className="rounded-full border border-lime-300/30 bg-lime-300/10 px-3 py-1">Старт работ за 24 часа</span>
+              </div>
+              <div className="mt-6 flex flex-col justify-center gap-3 sm:flex-row">
+                <Link href="/contact" className="btn-primary w-full justify-center sm:w-auto">
+                  Оставить заявку
+                </Link>
+                <Link href="/services" className="btn-secondary w-full justify-center sm:w-auto">
+                  Посмотреть услуги
+                </Link>
+              </div>
             </div>
           </Reveal>
         </div>

@@ -65,7 +65,7 @@ export function Header({ onOpenLead, theme, onToggleTheme }: HeaderProps) {
           <ThemeToggle theme={theme} onToggle={onToggleTheme} />
           <button
             onClick={() => setMobileOpen((prev) => !prev)}
-            className="btn-secondary px-3 py-2 text-sm md:hidden"
+            className="inline-flex items-center rounded-xl border border-[var(--accent-outline)] bg-[var(--btn-secondary-bg)] px-3 py-2 text-sm text-[var(--btn-secondary-text)] shadow-[0_0_0_1px_var(--accent-outline-soft)] transition hover:brightness-95 md:hidden"
             aria-label={mobileOpen ? "Закрыть меню" : "Открыть меню"}
           >
             {mobileOpen ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
