@@ -1,0 +1,66 @@
+import Link from "next/link";
+import { navItems } from "@/data/site-data";
+import { Send } from "lucide-react";
+
+export function Footer() {
+  return (
+    <footer className="border-t border-white/10 bg-black/40">
+      <div className="container-main grid gap-8 py-12 md:grid-cols-4">
+        <div>
+          <p className="text-lg font-semibold">NerdServ</p>
+          <p className="mt-2 text-sm text-gray-400">Разработка сайтов, ботов и автоматизации под ключ.</p>
+        </div>
+
+        <div>
+          <p className="font-medium">Навигация</p>
+          <div className="mt-3 space-y-2 text-sm text-gray-300">
+            {navItems.map((item) => (
+              <Link key={item.href} href={item.href} className="block hover:text-lime-300">
+                {item.label}
+              </Link>
+            ))}
+          </div>
+        </div>
+
+        <div>
+          <p className="font-medium">Контакты</p>
+          <div className="mt-3 space-y-2 text-sm text-gray-300">
+            <p>Telegram: @NerdIdk</p>
+            <p>WhatsApp/Max: +7 (964) 986-67-41</p>
+          </div>
+        </div>
+
+        <div>
+          <p className="font-medium">Соцсети</p>
+          <div className="mt-3 flex gap-3 text-gray-300">
+            <Link
+              href="https://t.me/NerdIdk"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="transition hover:text-lime-300"
+              aria-label="Telegram"
+              title="Telegram"
+            >
+              <Send className="h-5 w-5" />
+            </Link>
+            <Link
+              href="https://vk.com/nerdidk"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex h-5 items-center transition hover:text-lime-300"
+              aria-label="VK"
+              title="VK"
+            >
+              <span className="inline-flex items-center text-[13px] font-semibold leading-none">
+                VK
+              </span>
+            </Link>
+          </div>
+        </div>
+      </div>
+      <div className="border-t border-white/10 py-4 text-center text-xs text-gray-500">
+        © {new Date().getFullYear()} NerdServ. Все права защищены.
+      </div>
+    </footer>
+  );
+}

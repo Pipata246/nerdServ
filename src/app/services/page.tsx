@@ -1,0 +1,45 @@
+import { Metadata } from "next";
+import { services } from "@/data/site-data";
+import { Reveal } from "@/components/animated/reveal";
+import { SalesProof } from "@/components/sections/sales-proof";
+
+export const metadata: Metadata = {
+  title: "Услуги | NerdServ",
+  description: "Разработка сайтов, Telegram-ботов и автоматизация бизнес-процессов."
+};
+
+export default function ServicesPage() {
+  return (
+    <section className="section">
+      <div className="container-main">
+        <Reveal>
+          <h1 className="title">Услуги</h1>
+        </Reveal>
+        <Reveal delay={0.05}>
+          <p className="subtitle">Решения под задачи бизнеса: от лендингов до сложных автоматизаций.</p>
+        </Reveal>
+
+        <div className="mt-8 grid gap-5 md:grid-cols-3">
+          {services.map((item, i) => (
+            <Reveal key={item.id} delay={i * 0.08}>
+              <article className="glass rounded-2xl p-6 transition hover:-translate-y-2 hover:border-lime-300/40">
+                <h2 className="text-xl font-semibold">{item.title}</h2>
+                <p className="mt-3 text-sm text-gray-300">{item.description}</p>
+                <ul className="mt-4 space-y-2 text-sm text-gray-200">
+                  {item.benefits.map((benefit) => (
+                    <li key={benefit}>• {benefit}</li>
+                  ))}
+                </ul>
+                <p className="mt-6 text-lime-300">{item.priceFrom}</p>
+              </article>
+            </Reveal>
+          ))}
+        </div>
+
+        <Reveal delay={0.1} className="mt-8">
+          <SalesProof />
+        </Reveal>
+      </div>
+    </section>
+  );
+}
