@@ -9,6 +9,8 @@ import { SVGSprinkles } from "@/components/ui/svg-sprinkles";
 import { SalesProof } from "@/components/sections/sales-proof";
 
 export default function HomePage() {
+  const basicServices = services.filter((item) => item.category === "basic");
+
   return (
     <>
       <section className="section">
@@ -30,7 +32,7 @@ export default function HomePage() {
             </motion.p>
             <h1 className="title">Разработка сайтов и Telegram-ботов под ключ</h1>
             <p className="subtitle">
-              Помогаю бизнесу запускать быстрые сайты, автоматизировать рутину и внедрять полезные Telegram-решения.
+              Помогаю бизнесу запускать быстрые сайты, автоматизировать рутину и внедрять полезные Решения.
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
               <Link href="/contact" className="btn-primary w-full justify-center sm:w-auto">
@@ -44,13 +46,56 @@ export default function HomePage() {
         </div>
       </section>
 
+      <section className="section pt-6 sm:pt-8">
+        <div className="container-main">
+          <Reveal>
+            <div className="mb-5 flex flex-wrap items-end justify-between gap-3">
+              <div>
+                <p className="text-xs uppercase tracking-[0.2em] text-lime-300/90">Почему выбирают меня</p>
+                <h2 className="mt-2 text-2xl font-bold sm:text-3xl">Работаю как партнер, а не просто исполнитель</h2>
+                <p className="mt-2 max-w-3xl text-sm text-gray-300 sm:text-base">
+                  Вы получаете не только код, но и понятный процесс: от идеи и приоритетов до запуска и улучшений по метрикам.
+                </p>
+              </div>
+              <Link href="/contact" className="btn-secondary w-full justify-center sm:w-auto">
+                Обсудить задачу
+              </Link>
+            </div>
+          </Reveal>
+
+          <div className="grid gap-6 lg:grid-cols-3">
+            {[
+              {
+                title: "Системный подход",
+                text: "Фиксируем цель проекта, этапы, сроки и KPI до старта работ."
+              },
+              {
+                title: "Быстрая коммуникация",
+                text: "Регулярные апдейты и ответы без задержек, чтобы вы не теряли темп."
+              },
+              {
+                title: "Ориентация на результат",
+                text: "Фокус на заявках, скорости и удобстве пользователя, а не на 'красивом коде ради кода'."
+              }
+            ].map((item, i) => (
+              <Reveal key={item.title} delay={i * 0.12}>
+                <div className="glass rounded-2xl p-6">
+                  <h3 className="text-lg font-semibold">{item.title}</h3>
+                  <p className="mt-2 text-sm text-gray-300">{item.text}</p>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <section className="section">
         <div className="container-main">
           <Reveal>
             <h2 className="text-2xl font-bold sm:text-3xl">Мои услуги</h2>
           </Reveal>
           <div className="mt-5 grid gap-4 md:grid-cols-3">
-            {services.map((item, i) => (
+            {basicServices.map((item, i) => (
               <Reveal key={item.id} delay={i * 0.1}>
                 <article className="glass rounded-2xl p-5">
                   <h3 className="text-xl font-semibold">{item.title}</h3>
@@ -60,6 +105,14 @@ export default function HomePage() {
               </Reveal>
             ))}
           </div>
+          <Reveal delay={0.2}>
+            <p className="mt-5 text-sm text-gray-300">
+              Также доступны дополнительные услуги: поддержка, CRM/платежки, CMS, парсинг, редизайн и другие.
+            </p>
+            <Link href="/services" className="btn-secondary mt-3 w-full justify-center sm:w-auto">
+              Смотреть все 9 услуг
+            </Link>
+          </Reveal>
         </div>
       </section>
 
@@ -71,25 +124,19 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="section pt-6 sm:pt-8">
-        <div className="container-main grid gap-6 lg:grid-cols-3">
-          {["Системный подход", "Быстрая коммуникация", "Ориентация на результат"].map((item, i) => (
-            <Reveal key={item} delay={i * 0.12}>
-              <div className="glass rounded-2xl p-6">
-                <h3 className="text-lg font-semibold">{item}</h3>
-                <p className="mt-2 text-sm text-gray-300">
-                  Работаю прозрачно: четкие этапы, регулярные отчеты и измеримый результат.
-                </p>
-              </div>
-            </Reveal>
-          ))}
-        </div>
-      </section>
-
       <section className="section">
         <div className="container-main">
           <Reveal>
-            <h2 className="text-2xl font-bold sm:text-3xl">Превью кейсов</h2>
+            <div className="mb-5 flex flex-wrap items-end justify-between gap-3">
+              <div>
+                <p className="text-xs uppercase tracking-[0.2em] text-lime-300/90">Портфолио и результаты</p>
+                <h2 className="mt-2 text-2xl font-bold sm:text-3xl">Превью кейсов</h2>
+                <p className="mt-2 max-w-2xl text-sm text-gray-300">Каждый кейс показывает измеримый результат, а не просто красивый макет.</p>
+              </div>
+              <Link href="/portfolio" className="btn-secondary w-full justify-center sm:w-auto">
+                Смотреть все кейсы
+              </Link>
+            </div>
           </Reveal>
           <div className="mt-5 grid gap-4 md:grid-cols-3">
             {cases.slice(0, 3).map((item, i) => (
@@ -104,6 +151,12 @@ export default function HomePage() {
                     Image Placeholder
                   </div>
                   <h3 className="mt-3 text-lg font-semibold">{item.title}</h3>
+                  {"stack" in item && item.stack && <p className="mt-2 text-xs text-gray-400">{item.stack}</p>}
+                  {"result" in item && item.result && <p className="mt-2 text-sm font-semibold text-lime-300">{item.result}</p>}
+                  <p className="mt-2 text-sm text-gray-300">{item.description}</p>
+                  <Link href="/portfolio" className="btn-secondary mt-4 w-full justify-center text-sm">
+                    Подробнее
+                  </Link>
                 </div>
               </Reveal>
             ))}
@@ -114,9 +167,30 @@ export default function HomePage() {
       <section className="section">
         <div className="container-main">
           <Reveal>
-            <h2 className="mb-6 text-2xl font-bold sm:text-3xl">Отзывы</h2>
+            <div className="mb-5 flex flex-wrap items-end justify-between gap-3">
+              <div>
+                <p className="text-xs uppercase tracking-[0.2em] text-lime-300/90">Социальное доказательство</p>
+                <h2 className="mt-2 text-2xl font-bold sm:text-3xl">Отзывы клиентов</h2>
+                <p className="mt-2 max-w-2xl text-sm text-gray-300">
+                  Клиенты возвращаются за следующими задачами, потому что получают результат и понятный процесс работы.
+                </p>
+              </div>
+              <Link href="/contact" className="btn-secondary w-full justify-center sm:w-auto">
+                Хочу такой же результат
+              </Link>
+            </div>
           </Reveal>
-          <TestimonialsSlider />
+          <div className="grid gap-4 lg:grid-cols-[2fr_1fr]">
+            <TestimonialsSlider />
+            <div className="glass rounded-2xl p-5">
+              <p className="text-sm text-gray-300">Средняя оценка по обратной связи</p>
+              <p className="mt-2 text-3xl font-bold text-lime-300">5.0 / 5</p>
+              <p className="mt-3 text-sm text-gray-300">На основе отзывов по сайтам, ботам и автоматизации процессов.</p>
+              <Link href="/contact" className="btn-primary mt-5 w-full justify-center">
+                Обсудить ваш проект
+              </Link>
+            </div>
+          </div>
         </div>
       </section>
 

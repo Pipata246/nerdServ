@@ -9,6 +9,9 @@ export const metadata: Metadata = {
 };
 
 export default function ServicesPage() {
+  const basicServices = services.filter((item) => item.category === "basic");
+  const extraServices = services.filter((item) => item.category === "extra");
+
   return (
     <section className="section">
       <div className="container-main">
@@ -19,8 +22,11 @@ export default function ServicesPage() {
           <p className="subtitle">Решения под задачи бизнеса: от лендингов до сложных автоматизаций.</p>
         </Reveal>
 
-        <div className="mt-8 grid gap-5 md:grid-cols-3">
-          {services.map((item, i) => (
+        <Reveal delay={0.08}>
+          <h2 className="mt-8 text-2xl font-semibold">Базовые услуги</h2>
+        </Reveal>
+        <div className="mt-5 grid gap-5 md:grid-cols-3">
+          {basicServices.map((item, i) => (
             <Reveal key={item.id} delay={i * 0.08}>
               <article className="glass rounded-2xl p-6 transition hover:-translate-y-2 hover:border-lime-300/40">
                 <h2 className="text-xl font-semibold">{item.title}</h2>
@@ -31,6 +37,32 @@ export default function ServicesPage() {
                   ))}
                 </ul>
                 <p className="mt-6 text-lime-300">{item.priceFrom}</p>
+              </article>
+            </Reveal>
+          ))}
+        </div>
+
+        <Reveal delay={0.12}>
+          <h2 className="mt-10 text-2xl font-semibold">Дополнительные услуги (Upsell)</h2>
+          <p className="mt-2 text-sm text-gray-300">
+            Добавьте нужные опции к базовой разработке, чтобы быстрее получить результат и масштабироваться.
+          </p>
+        </Reveal>
+        <div className="mt-5 grid gap-5 md:grid-cols-2">
+          {extraServices.map((item, i) => (
+            <Reveal key={item.id} delay={i * 0.06}>
+              <article className="glass rounded-2xl p-6 transition hover:-translate-y-1">
+                <h3 className="text-lg font-semibold">{item.title}</h3>
+                <p className="mt-2 text-sm text-gray-300">{item.description}</p>
+                <ul className="mt-4 space-y-2 text-sm text-gray-200">
+                  {item.benefits.map((benefit) => (
+                    <li key={benefit}>• {benefit}</li>
+                  ))}
+                </ul>
+                <div className="mt-4 flex items-center justify-between">
+                  <span className="text-sm text-gray-400">Цена:</span>
+                  <span className="text-sm font-semibold text-lime-300">{item.priceFrom}</span>
+                </div>
               </article>
             </Reveal>
           ))}

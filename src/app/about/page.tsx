@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import Link from "next/link";
 import { Reveal } from "@/components/animated/reveal";
 import { SkillsBars } from "@/components/sections/skills-bars";
 import { SVGSprinkles } from "@/components/ui/svg-sprinkles";
@@ -39,6 +40,64 @@ export default function AboutPage() {
                 Работал с e-commerce, EdTech, локальными сервисами и B2B-платформами. Реализовал более 40 проектов,
                 включая лендинги, корпоративные сайты, ботов и сложные интеграции.
               </p>
+            </div>
+          </Reveal>
+        </div>
+
+        <div className="mt-8 grid gap-4 sm:grid-cols-3">
+          {[
+            { value: "40+", label: "реализованных проектов" },
+            { value: "5+ лет", label: "коммерческого опыта" },
+            { value: "24 часа", label: "средний старт работ" }
+          ].map((item, i) => (
+            <Reveal key={item.label} delay={i * 0.08}>
+              <div className="glass rounded-2xl p-5">
+                <p className="text-2xl font-bold text-lime-300">{item.value}</p>
+                <p className="mt-2 text-sm text-gray-300">{item.label}</p>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+
+        <div className="mt-8">
+          <Reveal>
+            <div className="mb-5">
+              <p className="text-xs uppercase tracking-[0.2em] text-lime-300/90">Как проходит работа</p>
+              <h2 className="mt-2 text-2xl font-bold sm:text-3xl">Прозрачный процесс от идеи до результата</h2>
+            </div>
+          </Reveal>
+          <div className="grid gap-4 md:grid-cols-4">
+            {[
+              { title: "01. Бриф", text: "Фиксируем цели, задачи и критерии успеха." },
+              { title: "02. План", text: "Собираю этапы, сроки и приоритеты запуска." },
+              { title: "03. Реализация", text: "Разработка с регулярными апдейтами по прогрессу." },
+              { title: "04. Запуск", text: "Тестирование, релиз и сопровождение после старта." }
+            ].map((step, i) => (
+              <Reveal key={step.title} delay={i * 0.08}>
+                <article className="glass rounded-2xl p-5">
+                  <h3 className="text-base font-semibold">{step.title}</h3>
+                  <p className="mt-2 text-sm text-gray-300">{step.text}</p>
+                </article>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+
+        <div className="mt-8">
+          <Reveal>
+            <div className="glass rounded-3xl p-6 text-center sm:p-8">
+              <h2 className="text-2xl font-bold sm:text-3xl">Нужен специалист, который доводит до результата?</h2>
+              <p className="mx-auto mt-3 max-w-2xl text-gray-300">
+                Подскажу, с чего лучше начать именно в вашем случае, и предложу решение под бюджет и сроки.
+              </p>
+              <div className="mt-6 flex flex-col justify-center gap-3 sm:flex-row">
+                <Link href="/contact" className="btn-primary w-full justify-center sm:w-auto">
+                  Обсудить проект
+                </Link>
+                <Link href="/portfolio" className="btn-secondary w-full justify-center sm:w-auto">
+                  Посмотреть кейсы
+                </Link>
+              </div>
             </div>
           </Reveal>
         </div>

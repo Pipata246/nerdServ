@@ -24,10 +24,31 @@ export function TestimonialsSlider() {
           exit={{ opacity: 0, y: -10 }}
           transition={{ duration: 0.35 }}
         >
+          <div className="mb-3 flex items-center gap-1 text-lime-300">
+            {"★★★★★".split("").map((star, i) => (
+              <span key={`${star}-${i}`} className="text-sm">
+                {star}
+              </span>
+            ))}
+          </div>
           <p className="text-lg text-gray-200">“{testimonials[index].text}”</p>
-          <p className="mt-4 text-sm text-lime-300">{testimonials[index].name}</p>
+          <div className="mt-4 grid gap-1 text-sm">
+            <p className="font-semibold text-lime-300">{testimonials[index].name}</p>
+            <p className="text-gray-300">{testimonials[index].role}</p>
+            <p className="text-xs text-gray-400">Проект: {testimonials[index].project}</p>
+          </div>
         </motion.div>
       </AnimatePresence>
+      <div className="mt-5 flex gap-2">
+        {testimonials.map((_, dotIndex) => (
+          <button
+            key={dotIndex}
+            onClick={() => setIndex(dotIndex)}
+            className={`h-2 rounded-full transition ${dotIndex === index ? "w-6 bg-lime-300" : "w-2 bg-white/25"}`}
+            aria-label={`Отзыв ${dotIndex + 1}`}
+          />
+        ))}
+      </div>
     </div>
   );
 }
