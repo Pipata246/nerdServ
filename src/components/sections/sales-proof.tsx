@@ -23,7 +23,7 @@ export function SalesProof() {
       <div className="mb-6 flex flex-wrap items-center justify-between gap-4">
         <div>
           <p className="text-xs uppercase tracking-[0.2em] text-lime-300/90">Почему это выгодно</p>
-          <h3 className="mt-1 text-2xl font-semibold">Что получает бизнес, а не просто "код"</h3>
+          <h3 className="mt-1 text-2xl font-semibold">Что получает бизнес, а не просто &quot;код&quot;</h3>
         </div>
         <div className="flex items-center gap-2 rounded-full border border-lime-300/30 bg-lime-300/10 px-3 py-1 text-xs text-lime-200">
           <ShieldCheck className="h-4 w-4" />
