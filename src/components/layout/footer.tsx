@@ -55,6 +55,20 @@ export function Footer() {
                 VK
               </span>
             </Link>
+            <Link
+              href="https://www.instagram.com/nerd1dk/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="transition hover:text-lime-300"
+              aria-label="Instagram"
+              title="Instagram"
+            >
+              <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+                <circle cx="12" cy="12" r="4" />
+                <circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none" />
+              </svg>
+            </Link>
           </div>
         </div>
       </div>

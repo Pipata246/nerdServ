@@ -225,6 +225,19 @@ export function ContactContent() {
           >
             <MessageCircle className="h-5 w-5 text-lime-300" /> WhatsApp/Max: +7 (964) 986-67-41
           </Link>
+          <Link
+            href="https://www.instagram.com/nerd1dk/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-3 rounded-xl border border-white/10 p-3 transition hover:bg-white/5"
+          >
+            <svg className="h-5 w-5 flex-shrink-0 text-lime-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
+              <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+              <circle cx="12" cy="12" r="4" />
+              <circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none" />
+            </svg>
+            Instagram: @nerd1dk
+          </Link>
           <div className="rounded-xl border border-white/10 bg-black/20 p-4">
             <p className="text-sm font-medium">Что будет после отправки:</p>
             <ul className="mt-2 space-y-1 text-sm text-gray-300">
