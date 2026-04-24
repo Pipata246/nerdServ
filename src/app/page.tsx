@@ -7,6 +7,7 @@ import { services, cases } from "@/data/site-data";
 import { TestimonialsSlider } from "@/components/sections/testimonials-slider";
 import { SVGSprinkles } from "@/components/ui/svg-sprinkles";
 import { SalesProof } from "@/components/sections/sales-proof";
+import Image from "next/image";
 
 export default function HomePage() {
   const basicServices = services.filter((item) => item.category === "basic");
@@ -147,8 +148,12 @@ export default function HomePage() {
                       <path d="M12 2L14.5 9.5L22 12L14.5 14.5L12 22L9.5 14.5L2 12L9.5 9.5L12 2Z" fill="currentColor" />
                     </svg>
                   </div>
-                  <div className="flex h-36 items-center justify-center rounded-xl bg-gray-600/40 text-sm text-gray-200">
-                    Image Placeholder
+                  <div className="flex h-36 items-center justify-center overflow-hidden rounded-xl bg-gray-600/40 text-sm text-gray-200">
+                    {"image" in item && item.image ? (
+                      <Image src={item.image} alt={item.title} width={400} height={144} className="h-full w-full object-cover" />
+                    ) : (
+                      <span>Image Placeholder</span>
+                    )}
                   </div>
                   <h3 className="mt-3 text-lg font-semibold">{item.title}</h3>
                   {"stack" in item && item.stack && <p className="mt-2 text-xs text-gray-400">{item.stack}</p>}

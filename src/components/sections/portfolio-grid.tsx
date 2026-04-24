@@ -4,6 +4,7 @@ import { useMemo, useState, useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { cases } from "@/data/site-data";
 import Link from "next/link";
+import Image from "next/image";
 
 type Filter = "all" | "site" | "bot" | "other";
 
@@ -71,8 +72,12 @@ export function PortfolioGrid() {
               transition={{ duration: 0.3 }}
               className="glass flex flex-col rounded-2xl p-4"
             >
-              <div className="mb-3 flex h-40 items-center justify-center rounded-xl bg-gray-600/40 text-sm text-gray-400">
-                Image Placeholder
+              <div className="mb-3 flex h-40 items-center justify-center overflow-hidden rounded-xl bg-gray-600/40 text-sm text-gray-400">
+                {"image" in item && item.image ? (
+                  <Image src={item.image} alt={item.title} width={400} height={160} className="h-full w-full object-cover" />
+                ) : (
+                  <span>Image Placeholder</span>
+                )}
               </div>
               <div className="mb-2 flex items-center gap-2">
                 <span className="rounded-full border border-lime-300/25 bg-lime-300/10 px-2 py-0.5 text-xs text-lime-300">
@@ -184,8 +189,12 @@ export function PortfolioGrid() {
 
                 {/* Right: image */}
                 <div className="flex items-center justify-center border-t border-white/8 bg-black/20 p-6 lg:border-l lg:border-t-0">
-                  <div className="flex h-64 w-full items-center justify-center rounded-2xl bg-gray-600/30 text-sm text-gray-500">
-                    Image Placeholder
+                <div className="flex h-64 w-full items-center justify-center overflow-hidden rounded-2xl bg-gray-600/30 text-sm text-gray-500">
+                    {"image" in selected && selected.image ? (
+                      <Image src={selected.image} alt={selected.title} width={600} height={256} className="h-full w-full object-cover" />
+                    ) : (
+                      <span>Image Placeholder</span>
+                    )}
                   </div>
                 </div>
               </div>

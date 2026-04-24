@@ -89,7 +89,8 @@ export const cases = [
     title: "Лендинг для IT-компании",
     description: "Полный редизайн и новая структура оффера для повышения конверсии.",
     result: "+34% к конверсии за 2 месяца",
-    stack: "Next.js + UX Audit"
+    stack: "Next.js + UX Audit",
+    image: "/images/landing-it.png"
   },
   {
     id: 2,
