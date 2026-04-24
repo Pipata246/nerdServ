@@ -254,22 +254,22 @@ export default function HomePage() {
                 {/* Right: step preview cards with stagger */}
                 <div className="grid grid-cols-2 gap-3">
                   {[
-                    { n: "01", label: "Бесплатная консультация", hint: "Отвечаю в течение 1 часа", color: "lime" },
-                    { n: "03", label: "Цена и сроки зафиксированы", hint: "Никаких доплат в процессе", color: "violet" },
-                    { n: "04", label: "Следите за прогрессом", hint: "Тестовая среда всегда доступна", color: "orange" },
-                    { n: "06", label: "Запуск под ключ", hint: "Вы получаете клиентов", color: "teal" },
+                    { n: "01", label: "Бесплатная консультация", hint: "Отвечаю в течение 1 часа" },
+                    { n: "03", label: "Цена и сроки зафиксированы", hint: "Никаких доплат в процессе" },
+                    { n: "04", label: "Следите за прогрессом", hint: "Тестовая среда всегда доступна" },
+                    { n: "06", label: "Запуск под ключ", hint: "Вы получаете клиентов" },
                   ].map((s, i) => (
                     <Reveal key={s.n} delay={i * 0.08}>
                       <Link
                         href="/your-case"
-                        className="group relative flex flex-col gap-2 overflow-hidden rounded-2xl border border-white/10 bg-black/20 p-4 backdrop-blur-sm transition hover:border-lime-300/40 hover:bg-lime-300/5"
+                        className="group relative flex flex-col gap-1.5 overflow-hidden rounded-2xl border border-white/10 bg-black/20 p-3 backdrop-blur-sm transition hover:border-lime-300/40 hover:bg-lime-300/5 sm:gap-2 sm:p-4"
                       >
                         <div className="absolute right-0 top-0 h-16 w-16 translate-x-6 -translate-y-6 rounded-full bg-lime-300/5 blur-xl transition group-hover:bg-lime-300/10" />
-                        <span className="relative text-xs font-bold text-lime-300/60 transition group-hover:text-lime-300">
+                        <span className="relative text-[10px] font-bold text-lime-300/60 transition group-hover:text-lime-300 sm:text-xs">
                           Шаг {s.n}
                         </span>
-                        <span className="relative text-sm font-semibold leading-snug text-white">{s.label}</span>
-                        <span className="relative text-xs text-gray-500">{s.hint}</span>
+                        <span className="relative text-xs font-semibold leading-snug text-white sm:text-sm">{s.label}</span>
+                        <span className="relative text-[10px] text-gray-500 sm:text-xs">{s.hint}</span>
                       </Link>
                     </Reveal>
                   ))}

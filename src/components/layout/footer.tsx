@@ -5,7 +5,7 @@ import { Send } from "lucide-react";
 export function Footer() {
   return (
     <footer className="border-t border-white/10 bg-black/40">
-      <div className="container-main grid gap-6 py-10 sm:gap-8 md:grid-cols-4 md:py-12">
+      <div className="container-main grid gap-8 py-10 sm:grid-cols-2 md:grid-cols-4 md:py-12">
         <div>
           <p className="text-lg font-semibold">NerdServ</p>
           <p className="mt-2 text-sm text-gray-400">Разработка сайтов, ботов и автоматизации под ключ.</p>
