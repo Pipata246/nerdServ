@@ -86,18 +86,19 @@ export function ContactContent() {
     const message = String(form.get("message") || "").trim();
     const consent = form.get("consent");
 
-    // Lightweight client-side validation for better UX before backend integration.
     const nextErrors: Errors = {};
     if (name.length < 2) nextErrors.name = "Введите имя (минимум 2 символа).";
-    if (contactWayValue === "email" && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contact)) {
-      nextErrors.contact = "Введите корректный email.";
+    
+    if (contactWayValue === "whatsapp" || contactWayValue === "max") {
+      if (!/^[0-9()\-\s]{6,20}$/.test(contact)) {
+        nextErrors.contact = "Введите корректный номер телефона.";
+      }
+    } else if (contactWayValue === "telegram") {
+      if (!/^@?[a-zA-Z0-9_]{5,32}$/.test(contact)) {
+        nextErrors.contact = "Введите username Telegram, например @nerdServ.";
+      }
     }
-    if (contactWayValue === "whatsapp" && !/^[0-9()\-\s]{6,20}$/.test(contact)) {
-      nextErrors.contact = "Введите корректный номер телефона.";
-    }
-    if (contactWayValue === "telegram" && !/^@?[a-zA-Z0-9_]{5,32}$/.test(contact)) {
-      nextErrors.contact = "Введите username Telegram, например @nerdServ.";
-    }
+    
     if (!service) nextErrors.service = "Выберите интересующую услугу.";
     if (message.length < 10) nextErrors.message = "Сообщение должно быть от 10 символов.";
     if (!consent) nextErrors.consent = "Подтвердите согласие на обработку данных.";
@@ -129,7 +130,7 @@ export function ContactContent() {
           {errors.name && <p className="mt-1 text-xs text-red-300">{errors.name}</p>}
         </div>
         <div>
-          {contactWayValue === "whatsapp" ? (
+          {contactWayValue === "whatsapp" || contactWayValue === "max" ? (
             <div className="grid gap-3 sm:grid-cols-[160px_1fr]">
               <CustomSelect
                 name="countryCode"
@@ -149,7 +150,7 @@ export function ContactContent() {
           ) : (
             <input
               name="contact"
-              placeholder={contactWayValue === "email" ? "Email для ответа" : "Telegram username (@username)"}
+              placeholder="Telegram username (@username)"
               className="field-control"
             />
           )}
@@ -182,8 +183,8 @@ export function ContactContent() {
             placeholder="Выберите канал связи"
             options={[
               { value: "telegram", label: "Связь через Telegram" },
-              { value: "whatsapp", label: "Связь через WhatsApp/Max" },
-              { value: "email", label: "Связь через Email" }
+              { value: "whatsapp", label: "Связь через WhatsApp" },
+              { value: "max", label: "Связь через Max" }
             ]}
           />
         </div>
