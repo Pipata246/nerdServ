@@ -220,24 +220,106 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* Your Case teaser */}
       <section className="section">
         <div className="container-main">
           <Reveal>
-            <div className="glass rounded-3xl p-6 text-center sm:p-8">
-              <p className="mb-3 text-xs uppercase tracking-[0.2em] text-lime-300/90">Финальный шаг</p>
-              <h2 className="text-3xl font-bold">Готовы обсудить ваш проект?</h2>
-              <p className="mx-auto mt-3 max-w-xl text-gray-300">Опишите задачу, и я предложу лучшее техническое решение.</p>
-              <div className="mx-auto mt-4 flex max-w-2xl flex-wrap justify-center gap-2 text-xs text-gray-300">
-                <span className="rounded-full border border-lime-300/30 bg-lime-300/10 px-3 py-1">Ответ в течение 1 часа</span>
-                <span className="rounded-full border border-lime-300/30 bg-lime-300/10 px-3 py-1">Старт работ за 24 часа</span>
+            <div className="glass relative overflow-hidden rounded-3xl p-6 sm:p-10">
+              {/* Glow */}
+              <div className="pointer-events-none absolute -right-32 -top-32 h-80 w-80 rounded-full bg-lime-300/10 blur-3xl" />
+
+              <div className="relative grid gap-8 lg:grid-cols-[1fr_1.2fr]">
+                {/* Left */}
+                <div className="flex flex-col justify-between gap-6">
+                  <div>
+                    <p className="text-xs uppercase tracking-[0.2em] text-lime-300/90">Как это работает</p>
+                    <h2 className="mt-2 text-2xl font-bold sm:text-3xl">
+                      Хотите знать, что будет происходить с вашим проектом?
+                    </h2>
+                    <p className="mt-3 text-gray-300">
+                      Никаких сюрпризов. Посмотрите все 8 этапов — от первого сообщения до запуска и поддержки. Прозрачно, по шагам, на вашем языке.
+                    </p>
+                  </div>
+                  <div className="flex flex-col gap-3 sm:flex-row">
+                    <Link href="/your-case" className="btn-primary w-full justify-center sm:w-auto">
+                      Смотреть все этапы →
+                    </Link>
+                    <Link href="/contact" className="btn-secondary w-full justify-center sm:w-auto">
+                      Начать проект
+                    </Link>
+                  </div>
+                </div>
+
+                {/* Right: step preview */}
+                <div className="grid grid-cols-2 gap-3">
+                  {[
+                    { n: "01", label: "Бесплатная консультация", hint: "Отвечаю в течение 1 часа" },
+                    { n: "03", label: "Цена и сроки зафиксированы", hint: "Никаких доплат в процессе" },
+                    { n: "05", label: "Следите за прогрессом", hint: "Обновления каждые 2–3 дня" },
+                    { n: "07", label: "Запуск под ключ", hint: "Вы получаете клиентов" },
+                  ].map((s, i) => (
+                    <Reveal key={s.n} delay={i * 0.08}>
+                      <Link
+                        href="/your-case"
+                        className="group flex flex-col gap-2 rounded-2xl border border-white/8 bg-white/3 p-4 transition hover:border-lime-300/30 hover:bg-lime-300/5"
+                      >
+                        <span className="text-xs font-bold text-lime-300/60 group-hover:text-lime-300 transition">
+                          Шаг {s.n}
+                        </span>
+                        <span className="text-sm font-semibold leading-snug text-white">{s.label}</span>
+                        <span className="text-xs text-gray-500">{s.hint}</span>
+                      </Link>
+                    </Reveal>
+                  ))}
+                </div>
               </div>
-              <div className="mt-6 flex flex-col justify-center gap-3 sm:flex-row">
-                <Link href="/contact" className="btn-primary w-full justify-center sm:w-auto">
-                  Оставить заявку
-                </Link>
-                <Link href="/services" className="btn-secondary w-full justify-center sm:w-auto">
-                  Посмотреть услуги
-                </Link>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* Final CTA */}
+      <section className="section">
+        <div className="container-main">
+          <Reveal>
+            <div className="glass relative overflow-hidden rounded-3xl p-6 sm:p-10">
+              <div className="pointer-events-none absolute -left-24 -bottom-24 h-72 w-72 rounded-full bg-lime-300/8 blur-3xl" />
+              <div className="relative grid gap-8 lg:grid-cols-[1fr_auto]">
+                <div>
+                  <p className="text-xs uppercase tracking-[0.2em] text-lime-300/90">Готовы начать?</p>
+                  <h2 className="mt-2 text-3xl font-bold sm:text-4xl">Расскажите о своей задаче</h2>
+                  <p className="mt-3 max-w-lg text-gray-300">
+                    Напишите в двух словах — что нужно сделать. Я отвечу в течение часа, оценю задачу и предложу конкретный план.
+                  </p>
+                  <div className="mt-5 flex flex-wrap gap-2">
+                    {["Ответ за 1 час", "Оценка бесплатно", "Старт за 24 часа", "Фиксированная цена"].map((tag) => (
+                      <span key={tag} className="rounded-full border border-lime-300/25 bg-lime-300/8 px-3 py-1 text-xs text-lime-300/80">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                  <div className="mt-6 flex flex-col gap-3 sm:flex-row">
+                    <Link href="/contact" className="btn-primary w-full justify-center sm:w-auto">
+                      Оставить заявку
+                    </Link>
+                    <Link href="/your-case" className="btn-secondary w-full justify-center sm:w-auto">
+                      Как проходит работа
+                    </Link>
+                  </div>
+                </div>
+                {/* Side stat */}
+                <div className="flex flex-row gap-4 lg:flex-col lg:justify-center">
+                  {[
+                    { value: "40+", label: "проектов сдано" },
+                    { value: "5.0", label: "средняя оценка" },
+                    { value: "30", label: "дней гарантии" },
+                  ].map((s) => (
+                    <div key={s.label} className="rounded-2xl border border-white/8 bg-white/3 px-5 py-4 text-center">
+                      <p className="text-2xl font-black text-lime-300">{s.value}</p>
+                      <p className="mt-1 text-xs text-gray-400">{s.label}</p>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
           </Reveal>

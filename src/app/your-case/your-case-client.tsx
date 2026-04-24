@@ -394,6 +394,11 @@ export function YourCaseClient() {
                       Начать проект →
                     </Link>
                   )}
+                  {active < TOTAL - 1 && (
+                    <span className="ml-2 text-xs text-gray-500">
+                      Следующий: {STEPS[active + 1].tag}
+                    </span>
+                  )}
                 </div>
               </div>
 
@@ -402,7 +407,7 @@ export function YourCaseClient() {
                 {/* Detail list */}
                 <div className={`glass rounded-3xl bg-gradient-to-br p-7 ${step.color}`} style={{ borderColor: `${step.accent}30` }}>
                   <p className="mb-4 text-xs font-semibold uppercase tracking-widest" style={{ color: step.accent }}>
-                    Что входит в этот этап
+                    Что это значит для вас
                   </p>
                   <div className="space-y-3">
                     {step.details.map((d, i) => (
@@ -425,34 +430,72 @@ export function YourCaseClient() {
                   </div>
                 </div>
 
-                {/* Mini step map */}
-                <div className="glass rounded-3xl p-5">
-                  <p className="mb-3 text-xs font-semibold uppercase tracking-widest text-gray-500">Все этапы</p>
-                  <div className="grid grid-cols-4 gap-2">
-                    {STEPS.map((s, i) => (
-                      <button
-                        key={i}
-                        onClick={() => goTo(i, i > active ? 1 : -1)}
-                        className="rounded-xl p-2 text-left transition hover:bg-white/5"
-                      >
-                        <motion.div
-                          animate={{
-                            opacity: i === active ? 1 : i < active ? 0.6 : 0.3
-                          }}
-                          transition={{ duration: 0.3 }}
-                        >
-                          <p
-                            className="text-xs font-bold"
-                            style={{ color: i === active ? step.accent : i < active ? "#6b7280" : "#374151" }}
+                {/* Last step: CTA / Other steps: mini map */}
+                <AnimatePresence mode="wait">
+                  {active === TOTAL - 1 ? (
+                    <motion.div
+                      key="cta"
+                      initial={{ opacity: 0, y: 16 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.4 }}
+                      className="glass rounded-3xl p-6"
+                      style={{ borderColor: "#cbe85740" }}
+                    >
+                      <p className="text-xs uppercase tracking-widest text-lime-300/70">Вы прошли все 8 этапов</p>
+                      <p className="mt-2 text-xl font-bold">Готовы запустить свой проект?</p>
+                      <p className="mt-2 text-sm text-gray-400">
+                        Напишите — расскажу, сколько займёт именно ваша задача и что будет на каждом шаге.
+                      </p>
+                      <div className="mt-5 flex flex-col gap-3 sm:flex-row">
+                        <Link href="/contact" className="btn-primary w-full justify-center sm:w-auto">
+                          Начать проект →
+                        </Link>
+                        <Link href="/contact" className="btn-secondary w-full justify-center text-sm sm:w-auto">
+                          Написать в Telegram
+                        </Link>
+                      </div>
+                      <div className="mt-4 flex gap-4 border-t border-white/8 pt-4">
+                        {[["40+", "проектов"], ["1 час", "ответ"], ["30 дней", "гарантия"]].map(([v, l]) => (
+                          <div key={l} className="text-center">
+                            <p className="text-base font-black text-lime-300">{v}</p>
+                            <p className="text-[10px] text-gray-500">{l}</p>
+                          </div>
+                        ))}
+                      </div>
+                    </motion.div>
+                  ) : (
+                    <motion.div
+                      key="map"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.3 }}
+                      className="glass rounded-3xl p-5"
+                    >
+                      <p className="mb-3 text-xs font-semibold uppercase tracking-widest text-gray-500">Все этапы</p>
+                      <div className="grid grid-cols-4 gap-2">
+                        {STEPS.map((s, i) => (
+                          <button
+                            key={i}
+                            onClick={() => goTo(i, i > active ? 1 : -1)}
+                            className="rounded-xl p-2 text-left transition hover:bg-white/5"
                           >
-                            {s.number}
-                          </p>
-                          <p className="mt-0.5 text-[10px] leading-tight text-gray-500">{s.tag}</p>
-                        </motion.div>
-                      </button>
-                    ))}
-                  </div>
-                </div>
+                            <motion.div
+                              animate={{ opacity: i === active ? 1 : i < active ? 0.6 : 0.3 }}
+                              transition={{ duration: 0.3 }}
+                            >
+                              <p className="text-xs font-bold" style={{ color: i === active ? step.accent : i < active ? "#6b7280" : "#374151" }}>
+                                {s.number}
+                              </p>
+                              <p className="mt-0.5 text-[10px] leading-tight text-gray-500">{s.tag}</p>
+                            </motion.div>
+                          </button>
+                        ))}
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </div>
             </motion.div>
           </AnimatePresence>
