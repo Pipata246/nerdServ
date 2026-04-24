@@ -6,7 +6,7 @@ import { CheckCircle2, Clock3, Rocket, ShieldCheck } from "lucide-react";
 
 const metrics = [
   { value: "40+", label: "реализованных проектов" },
-  { value: "до 10 дней", label: "от брифа до запуска" },
+  { value: "от 10 дней", label: "от брифа до запуска" },
   { value: "до 70%", label: "экономия времени за счёт автоматизации" }
 ];
 
