@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import { Reveal } from "@/components/animated/reveal";
 import { SkillsBars } from "@/components/sections/skills-bars";
 import { SVGSprinkles } from "@/components/ui/svg-sprinkles";
@@ -20,8 +21,19 @@ export default function AboutPage() {
           <Reveal>
             <div className="glass relative overflow-hidden rounded-2xl p-6">
               <SVGSprinkles />
-              <div className="mb-4 flex h-64 items-center justify-center rounded-xl bg-gray-600/40 text-sm text-gray-200">
-                Image Placeholder
+              {/* Photo block */}
+              <div className="relative mb-5 overflow-hidden rounded-xl">
+                {/* Lime glow behind photo */}
+                <div className="pointer-events-none absolute inset-0 z-10 rounded-xl ring-1 ring-lime-300/20" />
+                <div className="pointer-events-none absolute -bottom-8 left-1/2 z-0 h-40 w-64 -translate-x-1/2 rounded-full bg-lime-300/15 blur-3xl" />
+                <Image
+                  src="/images/avatar.png"
+                  alt="Фото разработчика"
+                  width={600}
+                  height={400}
+                  className="relative z-[1] h-72 w-full object-cover object-top"
+                  priority
+                />
               </div>
               <p className="text-gray-300">
                 5+ лет в коммерческой разработке. Работаю от идеи до релиза: аналитика, дизайн, разработка, тестирование,
