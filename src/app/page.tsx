@@ -224,20 +224,26 @@ export default function HomePage() {
       <section className="section">
         <div className="container-main">
           <Reveal>
-            <div className="glass relative overflow-hidden rounded-3xl p-6 sm:p-10">
-              {/* Glow */}
-              <div className="pointer-events-none absolute -right-32 -top-32 h-80 w-80 rounded-full bg-lime-300/10 blur-3xl" />
+            {/* Unique design: diagonal split with gradient */}
+            <div className="relative overflow-hidden rounded-3xl border border-lime-300/20 bg-gradient-to-br from-lime-300/5 via-transparent to-transparent p-6 sm:p-10">
+              {/* Diagonal accent line */}
+              <div className="pointer-events-none absolute -right-40 top-0 h-full w-96 rotate-12 bg-gradient-to-b from-lime-300/10 to-transparent blur-2xl" />
 
               <div className="relative grid gap-8 lg:grid-cols-[1fr_1.2fr]">
                 {/* Left */}
                 <div className="flex flex-col justify-between gap-6">
                   <div>
-                    <p className="text-xs uppercase tracking-[0.2em] text-lime-300/90">Как это работает</p>
-                    <h2 className="mt-2 text-2xl font-bold sm:text-3xl">
+                    <div className="inline-flex items-center gap-2 rounded-full border border-lime-300/30 bg-lime-300/10 px-3 py-1">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="h-3 w-3 text-lime-300">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                      </svg>
+                      <span className="text-xs font-semibold uppercase tracking-wider text-lime-300">Как это работает</span>
+                    </div>
+                    <h2 className="mt-4 text-2xl font-bold leading-tight sm:text-3xl">
                       Хотите знать, что будет происходить с вашим проектом?
                     </h2>
                     <p className="mt-3 text-gray-300">
-                      Никаких сюрпризов. Посмотрите все 8 этапов — от первого сообщения до запуска и поддержки. Прозрачно, по шагам, на вашем языке.
+                      Никаких сюрпризов. Посмотрите все 7 этапов — от первого сообщения до запуска и поддержки. Прозрачно, по шагам, на вашем языке.
                     </p>
                   </div>
                   <div className="flex flex-col gap-3 sm:flex-row">
@@ -250,24 +256,25 @@ export default function HomePage() {
                   </div>
                 </div>
 
-                {/* Right: step preview */}
+                {/* Right: step preview cards with stagger */}
                 <div className="grid grid-cols-2 gap-3">
                   {[
-                    { n: "01", label: "Бесплатная консультация", hint: "Отвечаю в течение 1 часа" },
-                    { n: "03", label: "Цена и сроки зафиксированы", hint: "Никаких доплат в процессе" },
-                    { n: "05", label: "Следите за прогрессом", hint: "Обновления каждые 2–3 дня" },
-                    { n: "07", label: "Запуск под ключ", hint: "Вы получаете клиентов" },
+                    { n: "01", label: "Бесплатная консультация", hint: "Отвечаю в течение 1 часа", color: "lime" },
+                    { n: "03", label: "Цена и сроки зафиксированы", hint: "Никаких доплат в процессе", color: "violet" },
+                    { n: "04", label: "Следите за прогрессом", hint: "Тестовая среда всегда доступна", color: "orange" },
+                    { n: "06", label: "Запуск под ключ", hint: "Вы получаете клиентов", color: "teal" },
                   ].map((s, i) => (
                     <Reveal key={s.n} delay={i * 0.08}>
                       <Link
                         href="/your-case"
-                        className="group flex flex-col gap-2 rounded-2xl border border-white/8 bg-white/3 p-4 transition hover:border-lime-300/30 hover:bg-lime-300/5"
+                        className="group relative flex flex-col gap-2 overflow-hidden rounded-2xl border border-white/10 bg-black/20 p-4 backdrop-blur-sm transition hover:border-lime-300/40 hover:bg-lime-300/5"
                       >
-                        <span className="text-xs font-bold text-lime-300/60 group-hover:text-lime-300 transition">
+                        <div className="absolute right-0 top-0 h-16 w-16 translate-x-6 -translate-y-6 rounded-full bg-lime-300/5 blur-xl transition group-hover:bg-lime-300/10" />
+                        <span className="relative text-xs font-bold text-lime-300/60 transition group-hover:text-lime-300">
                           Шаг {s.n}
                         </span>
-                        <span className="text-sm font-semibold leading-snug text-white">{s.label}</span>
-                        <span className="text-xs text-gray-500">{s.hint}</span>
+                        <span className="relative text-sm font-semibold leading-snug text-white">{s.label}</span>
+                        <span className="relative text-xs text-gray-500">{s.hint}</span>
                       </Link>
                     </Reveal>
                   ))}
@@ -282,41 +289,64 @@ export default function HomePage() {
       <section className="section">
         <div className="container-main">
           <Reveal>
-            <div className="glass relative overflow-hidden rounded-3xl p-6 sm:p-10">
-              <div className="pointer-events-none absolute -left-24 -bottom-24 h-72 w-72 rounded-full bg-lime-300/8 blur-3xl" />
-              <div className="relative grid gap-8 lg:grid-cols-[1fr_auto]">
-                <div>
-                  <p className="text-xs uppercase tracking-[0.2em] text-lime-300/90">Готовы начать?</p>
-                  <h2 className="mt-2 text-3xl font-bold sm:text-4xl">Расскажите о своей задаче</h2>
-                  <p className="mt-3 max-w-lg text-gray-300">
-                    Напишите в двух словах — что нужно сделать. Я отвечу в течение часа, оценю задачу и предложу конкретный план.
-                  </p>
-                  <div className="mt-5 flex flex-wrap gap-2">
-                    {["Ответ за 1 час", "Оценка бесплатно", "Старт за 24 часа", "Фиксированная цена"].map((tag) => (
-                      <span key={tag} className="rounded-full border border-lime-300/25 bg-lime-300/8 px-3 py-1 text-xs text-lime-300/80">
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                  <div className="mt-6 flex flex-col gap-3 sm:flex-row">
-                    <Link href="/contact" className="btn-primary w-full justify-center sm:w-auto">
-                      Оставить заявку
-                    </Link>
-                    <Link href="/your-case" className="btn-secondary w-full justify-center sm:w-auto">
-                      Как проходит работа
-                    </Link>
-                  </div>
+            {/* Unique design: centered with floating stats */}
+            <div className="relative overflow-hidden rounded-3xl border-2 border-lime-300/30 bg-gradient-to-br from-black/60 via-black/40 to-transparent p-8 sm:p-12">
+              {/* Animated glow */}
+              <div className="pointer-events-none absolute -left-32 -top-32 h-96 w-96 rounded-full bg-lime-300/15 blur-3xl" />
+              <div className="pointer-events-none absolute -bottom-32 -right-32 h-96 w-96 rounded-full bg-lime-300/10 blur-3xl" />
+
+              <div className="relative text-center">
+                <div className="inline-flex items-center gap-2 rounded-full border border-lime-300/40 bg-lime-300/15 px-4 py-1.5">
+                  <svg viewBox="0 0 24 24" fill="currentColor" className="h-3 w-3 text-lime-300">
+                    <path d="M11.645 20.91l-.007-.003-.022-.012a15.247 15.247 0 01-.383-.218 25.18 25.18 0 01-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0112 5.052 5.5 5.5 0 0116.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 01-4.244 3.17 15.247 15.247 0 01-.383.219l-.022.012-.007.004-.003.001a.752.752 0 01-.704 0l-.003-.001z" />
+                  </svg>
+                  <span className="text-xs font-bold uppercase tracking-widest text-lime-300">Готовы начать?</span>
                 </div>
-                {/* Side stat */}
-                <div className="flex flex-row gap-4 lg:flex-col lg:justify-center">
+                <h2 className="mx-auto mt-5 max-w-2xl text-3xl font-black sm:text-4xl lg:text-5xl">
+                  Расскажите о своей задаче
+                </h2>
+                <p className="mx-auto mt-4 max-w-xl text-base text-gray-300 sm:text-lg">
+                  Напишите в двух словах — что нужно сделать. Я отвечу в течение часа, оценю задачу и предложу конкретный план.
+                </p>
+
+                {/* Floating stats */}
+                <div className="mx-auto mt-8 flex max-w-2xl flex-wrap justify-center gap-3">
+                  {[
+                    { icon: "⚡", value: "1 час", label: "ответ" },
+                    { icon: "💰", value: "Бесплатно", label: "оценка" },
+                    { icon: "🚀", value: "24 часа", label: "старт" },
+                    { icon: "🔒", value: "Фикс", label: "цена" },
+                  ].map((tag) => (
+                    <span
+                      key={tag.label}
+                      className="inline-flex items-center gap-2 rounded-full border border-lime-300/30 bg-lime-300/10 px-4 py-2 text-sm font-medium text-lime-300 backdrop-blur-sm"
+                    >
+                      <span className="text-base">{tag.icon}</span>
+                      <span className="font-bold">{tag.value}</span>
+                      <span className="text-xs text-lime-300/70">{tag.label}</span>
+                    </span>
+                  ))}
+                </div>
+
+                <div className="mt-8 flex flex-col justify-center gap-4 sm:flex-row">
+                  <Link href="/contact" className="btn-primary w-full justify-center text-base sm:w-auto">
+                    Оставить заявку
+                  </Link>
+                  <Link href="/your-case" className="btn-secondary w-full justify-center text-base sm:w-auto">
+                    Как проходит работа
+                  </Link>
+                </div>
+
+                {/* Bottom stats bar */}
+                <div className="mx-auto mt-10 flex max-w-lg justify-center gap-8 border-t border-white/10 pt-6">
                   {[
                     { value: "40+", label: "проектов сдано" },
                     { value: "5.0", label: "средняя оценка" },
                     { value: "2 нед.", label: "гарантия" },
                   ].map((s) => (
-                    <div key={s.label} className="rounded-2xl border border-white/8 bg-white/3 px-5 py-4 text-center">
+                    <div key={s.label} className="text-center">
                       <p className="text-2xl font-black text-lime-300">{s.value}</p>
-                      <p className="mt-1 text-xs text-gray-400">{s.label}</p>
+                      <p className="mt-1 text-xs text-gray-500">{s.label}</p>
                     </div>
                   ))}
                 </div>
