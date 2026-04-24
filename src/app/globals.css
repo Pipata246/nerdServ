@@ -19,9 +19,6 @@
   --btn-primary-text: #111827;
   --link-color: #e5e7eb;
   --link-hover: #cbe857;
-  --toggle-bg: rgba(255, 255, 255, 0.05);
-  --toggle-border: rgba(255, 255, 255, 0.2);
-  --toggle-icon: #f4f4f5;
   --code-line: rgba(255, 255, 255, 0.16);
   --code-glow: rgba(203, 232, 87, 0.18);
   --code-opacity: 0.42;
@@ -73,6 +70,8 @@ html[data-theme="light"] .background-gradient {
     radial-gradient(520px 220px at 88% 0%, rgba(79, 111, 0, 0.18) 0%, transparent 80%),
     linear-gradient(180deg, var(--bg) 0%, var(--bg-soft) 100%);
 }
+
+
 
 * {
   box-sizing: border-box;
@@ -150,12 +149,6 @@ a {
 
 .header-link:hover {
   color: var(--link-hover);
-}
-
-.theme-toggle {
-  border: 1px solid var(--accent-outline);
-  background: var(--toggle-bg);
-  box-shadow: 0 0 0 1px var(--accent-outline-soft);
 }
 
 .field-control {
@@ -284,64 +277,4 @@ a {
 
 .float-soft-delayed {
   animation: floatSoft 3.8s ease-in-out 0.5s infinite;
-}
-
-/* Improve readability of existing utility text colors in light mode. */
-html[data-theme="light"] .text-gray-300 {
-  color: #334155 !important;
-}
-
-html[data-theme="light"] .text-gray-400 {
-  color: #475569 !important;
-}
-
-html[data-theme="light"] .text-gray-200,
-html[data-theme="light"] .text-gray-100 {
-  color: #0f172a !important;
-}
-
-html[data-theme="light"] .text-lime-300,
-html[data-theme="light"] .text-lime-200 {
-  color: #4f6f00 !important;
-}
-
-html[data-theme="light"] .text-lime-300\/90,
-html[data-theme="light"] .text-lime-300\/70,
-html[data-theme="light"] .text-lime-200\/70 {
-  color: #3f5a00 !important;
-  opacity: 1 !important;
-}
-
-html[data-theme="light"] .bg-black\/20,
-html[data-theme="light"] .bg-black\/25,
-html[data-theme="light"] .bg-black\/30,
-html[data-theme="light"] .bg-black\/40,
-html[data-theme="light"] .bg-black\/80 {
-  background-color: rgba(15, 23, 42, 0.08) !important;
-}
-
-html[data-theme="light"] .bg-lime-300\/10 {
-  background-color: rgba(79, 111, 0, 0.14) !important;
-}
-
-html[data-theme="light"] .border-lime-300\/30 {
-  border-color: rgba(79, 111, 0, 0.5) !important;
-}
-
-html[data-theme="light"] .glass {
-  box-shadow:
-    0 0 0 1px var(--accent-outline-soft),
-    0 10px 26px rgba(15, 23, 42, 0.12);
-}
-
-html[data-theme="light"] .text-white\/40 {
-  color: #334155 !important;
-  opacity: 0.85 !important;
-}
-
-html[data-theme="light"] .title,
-html[data-theme="light"] h1,
-html[data-theme="light"] h2,
-html[data-theme="light"] h3 {
-  color: #0f172a;
 }

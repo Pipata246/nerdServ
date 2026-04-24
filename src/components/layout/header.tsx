@@ -5,17 +5,12 @@ import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { navItems } from "@/data/site-data";
-import { ThemeToggle } from "@/components/ui/theme-toggle";
-
-type Theme = "dark" | "light";
 
 type HeaderProps = {
   onOpenLead: () => void;
-  theme: Theme;
-  onToggleTheme: () => void;
 };
 
-export function Header({ onOpenLead, theme, onToggleTheme }: HeaderProps) {
+export function Header({ onOpenLead }: HeaderProps) {
   const [visible, setVisible] = useState(true);
   const [mobileOpen, setMobileOpen] = useState(false);
   const lastScrollY = useRef(0);
@@ -24,16 +19,13 @@ export function Header({ onOpenLead, theme, onToggleTheme }: HeaderProps) {
     const handler = () => {
       const currentY = window.scrollY;
       const isScrollingDown = currentY > lastScrollY.current;
-
       if (currentY < 24) {
         setVisible(true);
       } else {
         setVisible(!isScrollingDown);
       }
-
       lastScrollY.current = currentY;
     };
-
     window.addEventListener("scroll", handler);
     return () => window.removeEventListener("scroll", handler);
   }, []);
@@ -44,11 +36,7 @@ export function Header({ onOpenLead, theme, onToggleTheme }: HeaderProps) {
         visible ? "translate-y-0" : "-translate-y-full"
       }`}
     >
-      <div
-        className={`container-main mt-2 flex h-16 items-center justify-between rounded-2xl px-4 backdrop-blur-md md:px-6 ${
-          theme === "dark" ? "border border-white/10 bg-black/35" : "border border-[#1f2937]/20 bg-white/92"
-        }`}
-      >
+      <div className="container-main mt-2 flex h-16 items-center justify-between rounded-2xl px-4 backdrop-blur-md md:px-6 border border-white/10 bg-black/35">
         <Link href="/" className="text-lg font-bold tracking-wide">
           NerdServ
         </Link>
@@ -62,7 +50,6 @@ export function Header({ onOpenLead, theme, onToggleTheme }: HeaderProps) {
         </nav>
 
         <div className="flex items-center gap-2">
-          <ThemeToggle theme={theme} onToggle={onToggleTheme} />
           <button
             onClick={() => setMobileOpen((prev) => !prev)}
             className="inline-flex items-center rounded-xl border border-[var(--accent-outline)] bg-[var(--btn-secondary-bg)] px-3 py-2 text-sm text-[var(--btn-secondary-text)] shadow-[0_0_0_1px_var(--accent-outline-soft)] transition hover:brightness-95 md:hidden"
@@ -82,11 +69,7 @@ export function Header({ onOpenLead, theme, onToggleTheme }: HeaderProps) {
       </div>
 
       {mobileOpen && (
-        <div
-          className={`container-main mt-2 rounded-2xl p-3 md:hidden ${
-            theme === "dark" ? "border border-white/10 bg-black/75" : "border border-[#1f2937]/20 bg-white/96"
-          }`}
-        >
+        <div className="container-main mt-2 rounded-2xl p-3 md:hidden border border-white/10 bg-black/75">
           <nav className="flex flex-col gap-1">
             {navItems.map((item) => (
               <Link
