@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState, useCallback } from "react";
+import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 
@@ -152,87 +152,27 @@ const TOTAL = STEPS.length;
 export function YourCaseClient() {
   const [active, setActive] = useState(0);
   const [direction, setDirection] = useState(1);
-  const [isAnimating, setIsAnimating] = useState(false);
-  const containerRef = useRef<HTMLDivElement>(null);
-  const accumulatorRef = useRef(0);
-  const THRESHOLD = 60;
 
-  const goTo = useCallback(
-    (next: number, dir: number) => {
-      if (isAnimating) return;
-      const clamped = Math.max(0, Math.min(TOTAL - 1, next));
-      if (clamped === active) return;
-      setDirection(dir);
-      setIsAnimating(true);
-      setActive(clamped);
-    },
-    [active, isAnimating]
-  );
-
-  useEffect(() => {
-    const el = containerRef.current;
-    if (!el) return;
-
-    const onWheel = (e: WheelEvent) => {
-      e.preventDefault();
-      accumulatorRef.current += e.deltaY;
-      if (Math.abs(accumulatorRef.current) >= THRESHOLD) {
-        const dir = accumulatorRef.current > 0 ? 1 : -1;
-        goTo(active + dir, dir);
-        accumulatorRef.current = 0;
-      }
-    };
-
-    el.addEventListener("wheel", onWheel, { passive: false });
-    return () => el.removeEventListener("wheel", onWheel);
-  }, [active, goTo]);
-
-  // Touch support
-  const touchStartY = useRef(0);
-  const onTouchStart = (e: React.TouchEvent) => {
-    touchStartY.current = e.touches[0].clientY;
-  };
-  const onTouchEnd = (e: React.TouchEvent) => {
-    const delta = touchStartY.current - e.changedTouches[0].clientY;
-    if (Math.abs(delta) > 40) {
-      const dir = delta > 0 ? 1 : -1;
-      goTo(active + dir, dir);
-    }
+  const goTo = (next: number) => {
+    const clamped = Math.max(0, Math.min(TOTAL - 1, next));
+    if (clamped === active) return;
+    setDirection(clamped > active ? 1 : -1);
+    setActive(clamped);
   };
 
   const step = STEPS[active];
 
   const variants = {
-    enter: (d: number) => ({
-      x: d > 0 ? 120 : -120,
-      opacity: 0,
-      scale: 0.94,
-      filter: "blur(6px)"
-    }),
-    center: {
-      x: 0,
-      opacity: 1,
-      scale: 1,
-      filter: "blur(0px)"
-    },
-    exit: (d: number) => ({
-      x: d > 0 ? -120 : 120,
-      opacity: 0,
-      scale: 0.94,
-      filter: "blur(6px)"
-    })
+    enter: (d: number) => ({ opacity: 0, x: d > 0 ? 60 : -60 }),
+    center: { opacity: 1, x: 0 },
+    exit: (d: number) => ({ opacity: 0, x: d > 0 ? -60 : 60 }),
   };
 
   return (
-    <div
-      ref={containerRef}
-      className="relative flex min-h-[calc(100vh-5rem)] flex-col overflow-hidden pb-6"
-      onTouchStart={onTouchStart}
-      onTouchEnd={onTouchEnd}
-    >
-      {/* Background glow that shifts per step */}
+    <div className="relative">
+      {/* Background glow */}
       <motion.div
-        className="pointer-events-none absolute inset-0 z-0"
+        className="pointer-events-none fixed inset-0 z-0"
         animate={{ opacity: 1 }}
         key={`bg-${active}`}
         style={{
@@ -243,24 +183,18 @@ export function YourCaseClient() {
 
       {/* Header */}
       <div className="container-main relative z-10 pt-6 sm:pt-8">
-        <motion.div
-          initial={{ opacity: 0, y: -16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-        >
-          <p className="text-xs uppercase tracking-[0.2em] text-lime-300/90">Ваш кейс</p>
-          <h1 className="mt-1 text-xl font-bold sm:text-2xl lg:text-3xl">Как проходит работа над проектом</h1>
-          <p className="mt-1 text-xs text-gray-400 sm:text-sm">Скролльте вниз — переключайте этапы</p>
-        </motion.div>
+        <p className="text-xs uppercase tracking-[0.2em] text-lime-300/90">Ваш кейс</p>
+        <h1 className="mt-1 text-xl font-bold sm:text-2xl lg:text-3xl">Как проходит работа над проектом</h1>
+        <p className="mt-1 text-xs text-gray-400 sm:text-sm">Используйте кнопки для навигации</p>
       </div>
 
-      {/* Step progress bar */}
+      {/* Progress bar */}
       <div className="container-main relative z-10 mt-4">
         <div className="flex items-center gap-1">
           {STEPS.map((s, i) => (
             <button
               key={i}
-              onClick={() => goTo(i, i > active ? 1 : -1)}
+              onClick={() => goTo(i)}
               aria-label={s.title}
             >
               <motion.div
@@ -279,232 +213,158 @@ export function YourCaseClient() {
         </div>
       </div>
 
-      {/* Main card */}
-      <div className="container-main relative z-10 mt-4 flex flex-1 items-start overflow-y-auto sm:mt-6 sm:items-center">
-        <div className="w-full pb-4">
-          <AnimatePresence mode="wait" custom={direction} onExitComplete={() => setIsAnimating(false)}>
-            <motion.div
-              key={active}
-              custom={direction}
-              variants={variants}
-              initial="enter"
-              animate="center"
-              exit="exit"
-              transition={{ duration: 0.45, ease: [0.25, 0.46, 0.45, 0.94] }}
-              className="grid gap-3 lg:grid-cols-[1fr_1.1fr] lg:gap-6"
-            >
-              {/* Left: step info */}
-              <div className="glass rounded-2xl p-4 sm:rounded-3xl sm:p-7" style={{ borderColor: `${step.accent}40` }}>
-                <div className="flex items-start justify-between">
-                  <div>
-                    <span
-                      className="inline-block rounded-full px-2 py-0.5 text-[9px] font-semibold uppercase tracking-widest sm:px-3 sm:py-1 sm:text-xs"
-                      style={{ background: `${step.accent}22`, color: step.accent }}
-                    >
-                      {step.tag}
-                    </span>
-                    <p className="mt-1.5 text-3xl font-black opacity-10 sm:mt-2 sm:text-5xl lg:text-6xl">{step.number}</p>
-                  </div>
-                  <motion.div
-                    initial={{ rotate: -15, scale: 0.8, opacity: 0 }}
-                    animate={{ rotate: 0, scale: 1, opacity: 1 }}
-                    transition={{ delay: 0.15, duration: 0.4 }}
-                    style={{ color: step.accent }}
-                    className="h-6 w-6 sm:h-8 sm:w-8"
+      {/* Content */}
+      <div className="container-main relative z-10 mt-4 pb-8 sm:mt-6">
+        <AnimatePresence mode="wait" custom={direction}>
+          <motion.div
+            key={active}
+            custom={direction}
+            variants={variants}
+            initial="enter"
+            animate="center"
+            exit="exit"
+            transition={{ duration: 0.35, ease: "easeOut" }}
+            className="grid gap-4 lg:grid-cols-[1fr_1.1fr] lg:gap-6"
+          >
+            {/* Left */}
+            <div className="glass rounded-2xl p-4 sm:p-6" style={{ borderColor: `${step.accent}40` }}>
+              <div className="flex items-start justify-between">
+                <div>
+                  <span
+                    className="inline-block rounded-full px-2 py-0.5 text-[9px] font-semibold uppercase tracking-widest sm:px-2.5 sm:py-1 sm:text-[10px]"
+                    style={{ background: `${step.accent}22`, color: step.accent }}
                   >
-                    {step.icon}
-                  </motion.div>
+                    {step.tag}
+                  </span>
+                  <p className="mt-1.5 text-3xl font-black opacity-10 sm:text-4xl lg:text-5xl">{step.number}</p>
                 </div>
-
-                <motion.h2
-                  initial={{ opacity: 0, y: 12 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.1, duration: 0.4 }}
-                  className="mt-1 text-lg font-bold leading-tight sm:text-2xl lg:text-3xl"
-                >
-                  {step.title}
-                </motion.h2>
-
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 0.18 }}
-                  className="mt-1 flex items-center gap-1.5"
-                >
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="h-3 w-3 text-gray-400 sm:h-3.5 sm:w-3.5">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                  </svg>
-                  <span className="text-[11px] text-gray-400 sm:text-xs">{step.duration}</span>
-                </motion.div>
-
-                <motion.p
-                  initial={{ opacity: 0, y: 8 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.2, duration: 0.4 }}
-                  className="mt-3 text-xs leading-relaxed text-gray-300 sm:mt-4 sm:text-sm"
-                >
-                  {step.description}
-                </motion.p>
-
-                {/* Nav arrows */}
-                <div className="mt-4 flex items-center gap-2 sm:mt-6">
-                  <button
-                    onClick={() => goTo(active - 1, -1)}
-                    disabled={active === 0}
-                    className="flex h-8 w-8 items-center justify-center rounded-xl border border-white/10 bg-white/5 transition hover:bg-white/10 disabled:opacity-25 sm:h-9 sm:w-9"
-                    aria-label="Предыдущий этап"
-                  >
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="h-3.5 w-3.5 sm:h-4 sm:w-4">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
-                    </svg>
-                  </button>
-                  <button
-                    onClick={() => goTo(active + 1, 1)}
-                    disabled={active === TOTAL - 1}
-                    className="flex h-8 w-8 items-center justify-center rounded-xl transition disabled:opacity-25 sm:h-9 sm:w-9"
-                    style={{ background: step.accent, color: "#111827" }}
-                    aria-label="Следующий этап"
-                  >
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="h-3.5 w-3.5 sm:h-4 sm:w-4">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
-                    </svg>
-                  </button>
-                  {active === TOTAL - 1 && (
-                    <Link href="/contact" className="btn-primary ml-1 text-[11px] sm:ml-2 sm:text-sm">
-                      Начать проект →
-                    </Link>
-                  )}
-                  {active < TOTAL - 1 && (
-                    <span className="ml-1 hidden text-[11px] text-gray-500 sm:ml-2 sm:inline sm:text-xs">
-                      Следующий: {STEPS[active + 1].tag}
-                    </span>
-                  )}
+                <div style={{ color: step.accent }} className="h-6 w-6 sm:h-7 sm:w-7">
+                  {step.icon}
                 </div>
               </div>
 
-              {/* Right: details */}
-              <div className="flex flex-col gap-2.5 sm:gap-3 lg:gap-4">
-                {/* Detail list */}
-                <div className={`glass rounded-2xl bg-gradient-to-br p-4 sm:rounded-3xl sm:p-5 lg:p-7 ${step.color}`} style={{ borderColor: `${step.accent}30` }}>
-                  <p className="mb-2.5 text-[9px] font-semibold uppercase tracking-widest sm:mb-3 sm:text-[10px] lg:text-xs" style={{ color: step.accent }}>
-                    Что это значит для вас
-                  </p>
-                  <div className="space-y-2 sm:space-y-2.5">
-                    {step.details.map((d, i) => (
-                      <motion.div
-                        key={d}
-                        initial={{ opacity: 0, x: 20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: 0.15 + i * 0.07, duration: 0.35 }}
-                        className="flex items-start gap-2 sm:gap-2.5"
+              <h2 className="mt-1 text-lg font-bold leading-tight sm:text-xl lg:text-2xl">
+                {step.title}
+              </h2>
+
+              <div className="mt-1 flex items-center gap-1.5">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="h-3 w-3 text-gray-400">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                </svg>
+                <span className="text-[10px] text-gray-400 sm:text-xs">{step.duration}</span>
+              </div>
+
+              <p className="mt-3 text-xs leading-relaxed text-gray-300 sm:text-sm">
+                {step.description}
+              </p>
+
+              {/* Nav */}
+              <div className="mt-4 flex items-center gap-2 sm:mt-5">
+                <button
+                  onClick={() => goTo(active - 1)}
+                  disabled={active === 0}
+                  className="flex h-8 w-8 items-center justify-center rounded-xl border border-white/10 bg-white/5 transition hover:bg-white/10 disabled:opacity-25"
+                  aria-label="Предыдущий"
+                >
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="h-3.5 w-3.5">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
+                  </svg>
+                </button>
+                <button
+                  onClick={() => goTo(active + 1)}
+                  disabled={active === TOTAL - 1}
+                  className="flex h-8 w-8 items-center justify-center rounded-xl transition disabled:opacity-25"
+                  style={{ background: step.accent, color: "#111827" }}
+                  aria-label="Следующий"
+                >
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="h-3.5 w-3.5">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+                  </svg>
+                </button>
+                {active === TOTAL - 1 && (
+                  <Link href="/contact" className="btn-primary ml-1 text-[11px] sm:text-xs">
+                    Начать проект →
+                  </Link>
+                )}
+              </div>
+            </div>
+
+            {/* Right */}
+            <div className="flex flex-col gap-3 lg:gap-4">
+              {/* Details */}
+              <div className={`glass rounded-2xl bg-gradient-to-br p-4 sm:p-5 ${step.color}`} style={{ borderColor: `${step.accent}30` }}>
+                <p className="mb-2.5 text-[9px] font-semibold uppercase tracking-widest sm:text-[10px]" style={{ color: step.accent }}>
+                  Что это значит для вас
+                </p>
+                <div className="space-y-2">
+                  {step.details.map((d, i) => (
+                    <motion.div
+                      key={d}
+                      initial={{ opacity: 0, x: 20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.15 + i * 0.07, duration: 0.35 }}
+                      className="flex items-start gap-2"
+                    >
+                      <span
+                        className="flex h-4 w-4 flex-shrink-0 items-center justify-center rounded-full text-[9px] font-bold sm:h-5 sm:w-5 sm:text-[10px]"
+                        style={{ background: `${step.accent}25`, color: step.accent }}
                       >
-                        <span
-                          className="flex h-4 w-4 flex-shrink-0 items-center justify-center rounded-full text-[9px] font-bold sm:h-5 sm:w-5 sm:text-[10px]"
-                          style={{ background: `${step.accent}25`, color: step.accent }}
-                        >
-                          ✓
-                        </span>
-                        <span className="text-[11px] leading-relaxed text-gray-200 sm:text-xs">{d}</span>
-                      </motion.div>
+                        ✓
+                      </span>
+                      <span className="text-[11px] leading-relaxed text-gray-200 sm:text-xs">{d}</span>
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
+
+              {/* CTA or Map */}
+              {active === TOTAL - 1 ? (
+                <div className="glass rounded-2xl p-4 sm:p-5" style={{ borderColor: "#cbe85740" }}>
+                  <p className="text-[9px] uppercase tracking-widest text-lime-300/70 sm:text-[10px]">Вы прошли все 7 этапов</p>
+                  <p className="mt-1.5 text-base font-bold sm:text-lg">Готовы запустить свой проект?</p>
+                  <p className="mt-1.5 text-[11px] text-gray-400 sm:text-xs">
+                    Напишите — расскажу, сколько займёт именно ваша задача.
+                  </p>
+                  <div className="mt-3 flex flex-col gap-2">
+                    <Link href="/contact" className="btn-primary w-full justify-center text-xs">
+                      Начать проект →
+                    </Link>
+                    <Link href="https://t.me/nerdServ" target="_blank" rel="noopener noreferrer" className="btn-secondary w-full justify-center text-xs">
+                      Написать в Telegram
+                    </Link>
+                  </div>
+                  <div className="mt-3 flex justify-around border-t border-white/8 pt-2.5">
+                    {[["40+", "проектов"], ["1 час", "ответ"], ["2 нед.", "гарантия"]].map(([v, l]) => (
+                      <div key={l} className="text-center">
+                        <p className="text-xs font-black text-lime-300">{v}</p>
+                        <p className="text-[8px] text-gray-500">{l}</p>
+                      </div>
                     ))}
                   </div>
                 </div>
-
-                {/* Last step: CTA / Other steps: mini map */}
-                <AnimatePresence mode="wait">
-                  {active === TOTAL - 1 ? (
-                    <motion.div
-                      key="cta"
-                      initial={{ opacity: 0, y: 16 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0 }}
-                      transition={{ duration: 0.4 }}
-                      className="glass rounded-2xl p-4 sm:rounded-3xl sm:p-5"
-                      style={{ borderColor: "#cbe85740" }}
-                    >
-                      <p className="text-[9px] uppercase tracking-widest text-lime-300/70 sm:text-[10px]">Вы прошли все 7 этапов</p>
-                      <p className="mt-1.5 text-base font-bold sm:mt-2 sm:text-lg">Готовы запустить свой проект?</p>
-                      <p className="mt-1.5 text-[11px] text-gray-400 sm:mt-2 sm:text-xs">
-                        Напишите — расскажу, сколько займёт именно ваша задача и что будет на каждом шаге.
-                      </p>
-                      <div className="mt-3 flex flex-col gap-2 sm:mt-4">
-                        <Link href="/contact" className="btn-primary w-full justify-center text-xs sm:text-sm">
-                          Начать проект →
-                        </Link>
-                        <Link href="https://t.me/nerdServ" target="_blank" rel="noopener noreferrer" className="btn-secondary w-full justify-center text-xs sm:text-sm">
-                          Написать в Telegram
-                        </Link>
-                      </div>
-                      <div className="mt-3 flex justify-around border-t border-white/8 pt-2.5 sm:pt-3">
-                        {[["40+", "проектов"], ["1 час", "ответ"], ["2 нед.", "гарантия"]].map(([v, l]) => (
-                          <div key={l} className="text-center">
-                            <p className="text-xs font-black text-lime-300 sm:text-sm">{v}</p>
-                            <p className="text-[8px] text-gray-500 sm:text-[9px]">{l}</p>
-                          </div>
-                        ))}
-                      </div>
-                    </motion.div>
-                  ) : (
-                    <motion.div
-                      key="map"
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                      transition={{ duration: 0.3 }}
-                      className="glass rounded-2xl p-3 sm:rounded-3xl sm:p-4"
-                    >
-                      <p className="mb-2 text-[9px] font-semibold uppercase tracking-widest text-gray-500 sm:text-[10px]">Все этапы</p>
-                      <div className="grid grid-cols-4 gap-1 sm:gap-1.5">
-                        {STEPS.map((s, i) => (
-                          <button
-                            key={i}
-                            onClick={() => goTo(i, i > active ? 1 : -1)}
-                            className="rounded-lg p-1 text-left transition hover:bg-white/5 sm:rounded-xl sm:p-1.5"
-                          >
-                            <motion.div
-                              animate={{ opacity: i === active ? 1 : i < active ? 0.6 : 0.3 }}
-                              transition={{ duration: 0.3 }}
-                            >
-                              <p className="text-[9px] font-bold sm:text-[10px]" style={{ color: i === active ? step.accent : i < active ? "#6b7280" : "#374151" }}>
-                                {s.number}
-                              </p>
-                              <p className="mt-0.5 hidden text-[7px] leading-tight text-gray-500 sm:block sm:text-[8px]">{s.tag}</p>
-                            </motion.div>
-                          </button>
-                        ))}
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
-            </motion.div>
-          </AnimatePresence>
-        </div>
-      </div>
-
-      {/* Scroll hint */}
-      <AnimatePresence>
-        {active === 0 && (
-          <motion.div
-            initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0 }}
-            transition={{ delay: 1.2 }}
-            className="absolute bottom-4 left-1/2 z-10 -translate-x-1/2"
-          >
-            <motion.div
-              animate={{ y: [0, 6, 0] }}
-              transition={{ repeat: Infinity, duration: 1.4, ease: "easeInOut" }}
-              className="flex flex-col items-center gap-1 text-gray-500"
-            >
-              <span className="text-[10px] sm:text-xs">Скролл</span>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="h-3.5 w-3.5">
-                <path strokeLinecap="round" strokeLinejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
-              </svg>
-            </motion.div>
+              ) : (
+                <div className="glass rounded-2xl p-3 sm:p-4">
+                  <p className="mb-2 text-[9px] font-semibold uppercase tracking-widest text-gray-500 sm:text-[10px]">Все этапы</p>
+                  <div className="grid grid-cols-4 gap-1">
+                    {STEPS.map((s, i) => (
+                      <button
+                        key={i}
+                        onClick={() => goTo(i)}
+                        className="rounded-lg p-1 text-left transition hover:bg-white/5 sm:p-1.5"
+                      >
+                        <p className="text-[9px] font-bold sm:text-[10px]" style={{ color: i === active ? step.accent : i < active ? "#6b7280" : "#374151" }}>
+                          {s.number}
+                        </p>
+                        <p className="mt-0.5 hidden text-[7px] leading-tight text-gray-500 sm:block sm:text-[8px]">{s.tag}</p>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
           </motion.div>
-        )}
-      </AnimatePresence>
+        </AnimatePresence>
+      </div>
     </div>
   );
 }
