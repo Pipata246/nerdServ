@@ -18,7 +18,7 @@ export default function AboutPage() {
 
         <div className="mt-8 grid gap-6 lg:grid-cols-2">
           <Reveal>
-            <div className="glass relative overflow-hidden rounded-2xl p-6">
+            <div className="glass relative flex h-full flex-col overflow-hidden rounded-2xl p-6">
               <SVGSprinkles />
               {/* Photo block */}
               <div className="relative mb-5 overflow-hidden rounded-xl">
@@ -41,11 +41,11 @@ export default function AboutPage() {
           </Reveal>
 
           <Reveal delay={0.1}>
-            <div className="glass rounded-2xl p-6">
+            <div className="glass flex h-full flex-col rounded-2xl p-6">
               <p className="text-xs uppercase tracking-[0.2em] text-lime-300/90">Чем занимаюсь</p>
               <h2 className="mt-2 text-2xl font-semibold">Стек и направления</h2>
 
-              <div className="mt-5 grid grid-cols-2 gap-3">
+              <div className="mt-5 grid flex-1 grid-cols-2 gap-3">
                 {[
                   { icon: "⬡", label: "Next.js / React", sub: "Фронтенд и SSR" },
                   { icon: "⬡", label: "Node.js / Python", sub: "Бэкенд и API" },
