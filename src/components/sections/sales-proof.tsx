@@ -5,16 +5,16 @@ import { motion } from "framer-motion";
 import { CheckCircle2, Clock3, Rocket, ShieldCheck } from "lucide-react";
 
 const metrics = [
-  { value: "40+", label: "завершенных проектов" },
-  { value: "7-14 дней", label: "средний запуск MVP" },
-  { value: "до 70%", label: "сокращение рутины через автоматизацию" }
+  { value: "40+", label: "реализованных проектов" },
+  { value: "до 10 дней", label: "от брифа до запуска" },
+  { value: "до 70%", label: "экономия времени за счёт автоматизации" }
 ];
 
 const includeList = [
-  "Быстрый аудит задачи и выбор лучшего стека",
-  "Прототип и структура до старта разработки",
-  "Прозрачные этапы и еженедельные апдейты",
-  "Поддержка после релиза и доработка по метрикам"
+  "Анализ задачи и подбор оптимального решения",
+  "Фиксированная цена и сроки до старта работ",
+  "Постоянный доступ к тестовой среде в процессе",
+  "Поддержка и гарантия после сдачи проекта"
 ];
 
 export function SalesProof() {
@@ -23,7 +23,7 @@ export function SalesProof() {
       <div className="mb-6 flex flex-wrap items-center justify-between gap-4">
         <div>
           <p className="text-xs uppercase tracking-[0.2em] text-lime-300/90">Почему это выгодно</p>
-          <h3 className="mt-1 text-2xl font-semibold">Что получает бизнес, а не просто &quot;код&quot;</h3>
+          <h3 className="mt-1 text-2xl font-semibold">Результат для бизнеса, а не просто выполненная задача</h3>
         </div>
         <div className="flex items-center gap-2 rounded-full border border-lime-300/30 bg-lime-300/10 px-3 py-1 text-xs text-lime-200">
           <ShieldCheck className="h-4 w-4" />
