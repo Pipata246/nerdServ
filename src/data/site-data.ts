@@ -3,6 +3,7 @@ export const navItems = [
   { href: "/services", label: "Услуги" },
   { href: "/portfolio", label: "Портфолио" },
   { href: "/about", label: "Обо мне" },
+  { href: "/your-case", label: "Ваш кейс" },
   { href: "/contact", label: "Контакты" }
 ];
 
