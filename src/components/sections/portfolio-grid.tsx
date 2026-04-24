@@ -80,7 +80,7 @@ export function PortfolioGrid() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.22, delay: i * 0.04, ease: "easeOut" }}
-              className="glass group flex flex-col rounded-2xl p-5"
+              className="glass group flex h-full flex-col rounded-2xl p-5"
             >
               {/* Top: icon + type + stack */}
               <div className="flex items-start justify-between">
@@ -113,7 +113,7 @@ export function PortfolioGrid() {
               )}
 
               {/* Description */}
-              <p className="mt-3 line-clamp-3 text-sm leading-relaxed text-gray-400">{item.description}</p>
+              <p className="mt-3 flex-1 text-sm leading-relaxed text-gray-400">{item.description}</p>
 
               {/* Button */}
               <button

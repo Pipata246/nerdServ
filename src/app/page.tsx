@@ -141,7 +141,7 @@ export default function HomePage() {
           <div className="mt-5 grid gap-4 md:grid-cols-3">
             {cases.slice(0, 3).map((item, i) => (
               <Reveal key={item.id} delay={i * 0.1}>
-                <div className="glass flex flex-col rounded-2xl p-5">
+                <div className="glass flex h-full flex-col rounded-2xl p-5">
                   <div className="flex items-center gap-2">
                     <span className="rounded-full border border-lime-300/25 bg-lime-300/10 px-2.5 py-0.5 text-xs text-lime-300">
                       {item.type === "site" ? "Сайт" : item.type === "bot" ? "Telegram-бот" : "Интеграция"}
