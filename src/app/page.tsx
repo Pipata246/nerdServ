@@ -289,19 +289,19 @@ export default function HomePage() {
       <section className="section">
         <div className="container-main">
           <Reveal>
-            {/* Unique design: centered with floating stats */}
             <div className="relative overflow-hidden rounded-3xl border-2 border-lime-300/30 bg-gradient-to-br from-black/60 via-black/40 to-transparent p-8 sm:p-12">
-              {/* Animated glow */}
               <div className="pointer-events-none absolute -left-32 -top-32 h-96 w-96 rounded-full bg-lime-300/15 blur-3xl" />
               <div className="pointer-events-none absolute -bottom-32 -right-32 h-96 w-96 rounded-full bg-lime-300/10 blur-3xl" />
 
               <div className="relative text-center">
-                <div className="inline-flex items-center gap-2 rounded-full border border-lime-300/40 bg-lime-300/15 px-4 py-1.5">
-                  <svg viewBox="0 0 24 24" fill="currentColor" className="h-3 w-3 text-lime-300">
-                    <path d="M11.645 20.91l-.007-.003-.022-.012a15.247 15.247 0 01-.383-.218 25.18 25.18 0 01-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0112 5.052 5.5 5.5 0 0116.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 01-4.244 3.17 15.247 15.247 0 01-.383.219l-.022.012-.007.004-.003.001a.752.752 0 01-.704 0l-.003-.001z" />
+                {/* Label */}
+                <div className="inline-flex items-center gap-2 rounded-full border border-lime-300/30 bg-lime-300/10 px-4 py-1.5">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="h-3.5 w-3.5 text-lime-300">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 0 1 3 19.875v-6.75ZM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V8.625ZM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V4.125Z" />
                   </svg>
-                  <span className="text-xs font-bold uppercase tracking-widest text-lime-300">Готовы начать?</span>
+                  <span className="text-xs font-semibold uppercase tracking-widest text-lime-300">Готовы начать?</span>
                 </div>
+
                 <h2 className="mx-auto mt-5 max-w-2xl text-3xl font-black sm:text-4xl lg:text-5xl">
                   Расскажите о своей задаче
                 </h2>
@@ -309,21 +309,32 @@ export default function HomePage() {
                   Напишите в двух словах — что нужно сделать. Я отвечу в течение часа, оценю задачу и предложу конкретный план.
                 </p>
 
-                {/* Floating stats */}
+                {/* Tags with SVG icons */}
                 <div className="mx-auto mt-8 flex max-w-2xl flex-wrap justify-center gap-3">
                   {[
-                    { icon: "⚡", value: "1 час", label: "ответ" },
-                    { icon: "💰", value: "Бесплатно", label: "оценка" },
-                    { icon: "🚀", value: "24 часа", label: "старт" },
-                    { icon: "🔒", value: "Фикс", label: "цена" },
+                    {
+                      value: "Ответ за 1 час",
+                      icon: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="h-4 w-4"><path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" /></svg>
+                    },
+                    {
+                      value: "Оценка бесплатно",
+                      icon: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="h-4 w-4"><path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" /></svg>
+                    },
+                    {
+                      value: "Старт за 24 часа",
+                      icon: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="h-4 w-4"><path strokeLinecap="round" strokeLinejoin="round" d="M15.59 14.37a6 6 0 0 1-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 0 0 6.16-12.12A14.98 14.98 0 0 0 9.631 8.41m5.96 5.96a14.926 14.926 0 0 1-5.841 2.58m-.119-8.54a6 6 0 0 0-7.381 5.84h4.8m2.581-5.84a14.927 14.927 0 0 0-2.58 5.84m2.699 2.7c-.103.021-.207.041-.311.06a15.09 15.09 0 0 1-2.448-2.448 14.9 14.9 0 0 1 .06-.312m-2.24 2.39a4.493 4.493 0 0 0-1.757 4.306 4.493 4.493 0 0 0 4.306-1.758M16.5 9a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z" /></svg>
+                    },
+                    {
+                      value: "Фиксированная цена",
+                      icon: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="h-4 w-4"><path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285Z" /></svg>
+                    },
                   ].map((tag) => (
                     <span
-                      key={tag.label}
-                      className="inline-flex items-center gap-2 rounded-full border border-lime-300/30 bg-lime-300/10 px-4 py-2 text-sm font-medium text-lime-300 backdrop-blur-sm"
+                      key={tag.value}
+                      className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-2 text-sm text-gray-200 backdrop-blur-sm"
                     >
-                      <span className="text-base">{tag.icon}</span>
-                      <span className="font-bold">{tag.value}</span>
-                      <span className="text-xs text-lime-300/70">{tag.label}</span>
+                      <span className="text-lime-300">{tag.icon}</span>
+                      {tag.value}
                     </span>
                   ))}
                 </div>
@@ -337,7 +348,7 @@ export default function HomePage() {
                   </Link>
                 </div>
 
-                {/* Bottom stats bar */}
+                {/* Bottom stats */}
                 <div className="mx-auto mt-10 flex max-w-lg justify-center gap-8 border-t border-white/10 pt-6">
                   {[
                     { value: "40+", label: "проектов сдано" },
