@@ -200,15 +200,9 @@ export default function HomePage() {
                 </div>
               </div>
               {/* Stats */}
-              <div className="grid grid-cols-2 gap-3">
-                <div className="rounded-xl border border-white/8 bg-white/3 p-3 text-center">
-                  <p className="text-2xl font-bold text-white">12</p>
-                  <p className="mt-0.5 text-xs text-gray-400">отзывов</p>
-                </div>
-                <div className="rounded-xl border border-white/8 bg-white/3 p-3 text-center">
-                  <p className="text-2xl font-bold text-white">40+</p>
-                  <p className="mt-0.5 text-xs text-gray-400">проектов</p>
-                </div>
+              <div className="rounded-xl border border-white/8 bg-white/3 p-5 text-center">
+                <p className="text-4xl font-bold text-white">40+</p>
+                <p className="mt-1 text-sm text-gray-400">реализованных проектов</p>
               </div>
               <p className="text-xs leading-relaxed text-gray-400">
                 Отзывы по сайтам, Telegram-ботам и автоматизации процессов.
