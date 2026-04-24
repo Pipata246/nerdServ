@@ -43,18 +43,7 @@ export function Footer() {
             >
               <Send className="h-5 w-5" />
             </Link>
-            <Link
-              href="https://vk.com/nerdidk"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex h-5 items-center transition hover:text-lime-300"
-              aria-label="VK"
-              title="VK"
-            >
-              <span className="inline-flex items-center text-[13px] font-semibold leading-none">
-                VK
-              </span>
-            </Link>
+
             <Link
               href="https://www.instagram.com/nerd1dk/"
               target="_blank"
