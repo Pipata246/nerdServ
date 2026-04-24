@@ -10,8 +10,8 @@ export default function PortfolioPage() {
   return (
     <section className="section">
       <div className="container-main">
-        <h1 className="title">Портфолио</h1>
-        <p className="subtitle">Выберите категорию и посмотрите похожие по типу проекты.</p>
+        <h1 className="title">Кейсы</h1>
+        <p className="subtitle">Реальные проекты с описанием задачи, решения и результата.</p>
         <div className="mt-8">
           <PortfolioGrid />
         </div>

@@ -7,7 +7,6 @@ import { services, cases } from "@/data/site-data";
 import { TestimonialsSlider } from "@/components/sections/testimonials-slider";
 import { SVGSprinkles } from "@/components/ui/svg-sprinkles";
 import { SalesProof } from "@/components/sections/sales-proof";
-import Image from "next/image";
 
 export default function HomePage() {
   const basicServices = services.filter((item) => item.category === "basic");
@@ -142,25 +141,22 @@ export default function HomePage() {
           <div className="mt-5 grid gap-4 md:grid-cols-3">
             {cases.slice(0, 3).map((item, i) => (
               <Reveal key={item.id} delay={i * 0.1}>
-                <div className="glass relative rounded-2xl p-4">
-                  <div className="absolute right-3 top-3 text-lime-300/70">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" className="h-4 w-4">
-                      <path d="M12 2L14.5 9.5L22 12L14.5 14.5L12 22L9.5 14.5L2 12L9.5 9.5L12 2Z" fill="currentColor" />
-                    </svg>
-                  </div>
-                  <div className="flex h-36 items-center justify-center overflow-hidden rounded-xl bg-gray-600/40 text-sm text-gray-200">
-                    {"image" in item && item.image ? (
-                      <Image src={item.image} alt={item.title} width={400} height={144} className="h-full w-full object-cover" />
-                    ) : (
-                      <span>Image Placeholder</span>
+                <div className="glass flex flex-col rounded-2xl p-5">
+                  <div className="flex items-center gap-2">
+                    <span className="rounded-full border border-lime-300/25 bg-lime-300/10 px-2.5 py-0.5 text-xs text-lime-300">
+                      {item.type === "site" ? "Сайт" : item.type === "bot" ? "Telegram-бот" : "Интеграция"}
+                    </span>
+                    {"stack" in item && item.stack && (
+                      <span className="text-xs text-gray-500">{item.stack}</span>
                     )}
                   </div>
                   <h3 className="mt-3 text-lg font-semibold">{item.title}</h3>
-                  {"stack" in item && item.stack && <p className="mt-2 text-xs text-gray-400">{item.stack}</p>}
-                  {"result" in item && item.result && <p className="mt-2 text-sm font-semibold text-lime-300">{item.result}</p>}
-                  <p className="mt-2 text-sm text-gray-300">{item.description}</p>
+                  {"result" in item && item.result && (
+                    <p className="mt-1 text-sm font-semibold text-lime-300">{item.result}</p>
+                  )}
+                  <p className="mt-2 flex-1 text-sm text-gray-300">{item.description}</p>
                   <Link href="/portfolio" className="btn-secondary mt-4 w-full justify-center text-sm">
-                    Подробнее
+                    Смотреть кейсы
                   </Link>
                 </div>
               </Reveal>
