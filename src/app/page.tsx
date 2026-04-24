@@ -312,7 +312,7 @@ export default function HomePage() {
                   {[
                     { value: "40+", label: "проектов сдано" },
                     { value: "5.0", label: "средняя оценка" },
-                    { value: "30", label: "дней гарантии" },
+                    { value: "2 нед.", label: "гарантия" },
                   ].map((s) => (
                     <div key={s.label} className="rounded-2xl border border-white/8 bg-white/3 px-5 py-4 text-center">
                       <p className="text-2xl font-black text-lime-300">{s.value}</p>
