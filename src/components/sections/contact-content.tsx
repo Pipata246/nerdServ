@@ -226,6 +226,17 @@ export function ContactContent() {
             <MessageCircle className="h-5 w-5 text-lime-300" /> WhatsApp/Max: +7 (964) 986-67-41
           </Link>
           <Link
+            href="https://t.me/nerdServv"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-3 rounded-xl border border-white/10 p-3 transition hover:bg-white/5"
+          >
+            <svg className="h-5 w-5 flex-shrink-0 text-lime-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+            </svg>
+            Telegram-канал: @nerdServv
+          </Link>
+          <Link
             href="https://www.instagram.com/nerd1dk/"
             target="_blank"
             rel="noopener noreferrer"

@@ -43,7 +43,18 @@ export function Footer() {
             >
               <Send className="h-5 w-5" />
             </Link>
-
+            <Link
+              href="https://t.me/nerdServv"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="transition hover:text-lime-300"
+              aria-label="Telegram-канал"
+              title="Telegram-канал"
+            >
+              <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+              </svg>
+            </Link>
             <Link
               href="https://www.instagram.com/nerd1dk/"
               target="_blank"
