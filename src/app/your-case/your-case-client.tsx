@@ -270,19 +270,19 @@ export function YourCaseClient() {
                     <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
                   </svg>
                 </button>
-                <button
-                  onClick={() => goTo(active + 1)}
-                  disabled={active === TOTAL - 1}
-                  className="flex h-8 w-8 items-center justify-center rounded-xl transition disabled:opacity-25"
-                  style={{ background: step.accent, color: "#111827" }}
-                  aria-label="Следующий"
-                >
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="h-3.5 w-3.5">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
-                  </svg>
-                </button>
-                {active === TOTAL - 1 && (
-                  <Link href="/contact" className="btn-primary ml-1 text-[11px] sm:text-xs">
+                {active < TOTAL - 1 ? (
+                  <button
+                    onClick={() => goTo(active + 1)}
+                    className="flex h-8 w-8 items-center justify-center rounded-xl transition"
+                    style={{ background: step.accent, color: "#111827" }}
+                    aria-label="Следующий"
+                  >
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="h-3.5 w-3.5">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+                    </svg>
+                  </button>
+                ) : (
+                  <Link href="/contact" className="btn-primary ml-1 flex-1 justify-center text-xs sm:text-sm">
                     Начать проект →
                   </Link>
                 )}
