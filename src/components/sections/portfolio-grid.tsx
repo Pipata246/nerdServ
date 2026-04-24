@@ -71,16 +71,15 @@ export function PortfolioGrid() {
       </div>
 
       {/* Grid */}
-      <motion.div layout className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-        <AnimatePresence mode="popLayout">
+      <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        <AnimatePresence mode="wait">
           {list.map((item, i) => (
             <motion.article
-              key={item.id}
-              layout
-              initial={{ opacity: 0, y: 16 }}
+              key={`${filter}-${item.id}`}
+              initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.95 }}
-              transition={{ duration: 0.3, delay: i * 0.05 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.22, delay: i * 0.04, ease: "easeOut" }}
               className="glass group flex flex-col rounded-2xl p-5"
             >
               {/* Top: icon + type + stack */}
@@ -129,7 +128,7 @@ export function PortfolioGrid() {
             </motion.article>
           ))}
         </AnimatePresence>
-      </motion.div>
+      </div>
 
       {/* Modal */}
       <AnimatePresence>
