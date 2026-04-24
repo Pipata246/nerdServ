@@ -96,7 +96,7 @@ export function ContactContent() {
       nextErrors.contact = "Введите корректный номер телефона.";
     }
     if (contactWayValue === "telegram" && !/^@?[a-zA-Z0-9_]{5,32}$/.test(contact)) {
-      nextErrors.contact = "Введите username Telegram, например @NerdIdk.";
+      nextErrors.contact = "Введите username Telegram, например @nerdServ.";
     }
     if (!service) nextErrors.service = "Выберите интересующую услугу.";
     if (message.length < 10) nextErrors.message = "Сообщение должно быть от 10 символов.";
@@ -210,12 +210,12 @@ export function ContactContent() {
         <h2 className="text-2xl font-semibold">Другие способы связи</h2>
         <div className="mt-5 space-y-3 text-gray-200">
           <Link
-            href="https://t.me/NerdIdk"
+            href="https://t.me/nerdServ"
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center gap-3 rounded-xl border border-white/10 p-3 transition hover:bg-white/5"
           >
-            <Send className="h-5 w-5 text-lime-300" /> Telegram: @NerdIdk
+            <Send className="h-5 w-5 text-lime-300" /> Telegram: @nerdServ
           </Link>
           <Link
             href="https://wa.me/79649866741"

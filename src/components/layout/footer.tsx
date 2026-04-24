@@ -25,7 +25,7 @@ export function Footer() {
         <div>
           <p className="font-medium">Контакты</p>
           <div className="mt-3 space-y-2 text-sm text-gray-300">
-            <p>Telegram: @NerdIdk</p>
+            <p>Telegram: @nerdServ</p>
             <p>WhatsApp/Max: +7 (964) 986-67-41</p>
           </div>
         </div>
@@ -34,7 +34,7 @@ export function Footer() {
           <p className="font-medium">Соцсети</p>
           <div className="mt-3 flex gap-3 text-gray-300">
             <Link
-              href="https://t.me/NerdIdk"
+              href="https://t.me/nerdServ"
               target="_blank"
               rel="noopener noreferrer"
               className="transition hover:text-lime-300"

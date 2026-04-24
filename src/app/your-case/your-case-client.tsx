@@ -431,7 +431,7 @@ export function YourCaseClient() {
                         <Link href="/contact" className="btn-primary w-full justify-center sm:w-auto">
                           Начать проект →
                         </Link>
-                        <Link href="https://t.me/NerdIdk" target="_blank" rel="noopener noreferrer" className="btn-secondary w-full justify-center text-sm sm:w-auto">
+                        <Link href="https://t.me/nerdServ" target="_blank" rel="noopener noreferrer" className="btn-secondary w-full justify-center text-sm sm:w-auto">
                           Написать в Telegram
                         </Link>
                       </div>
