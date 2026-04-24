@@ -280,8 +280,8 @@ export function YourCaseClient() {
       </div>
 
       {/* Main card */}
-      <div className="container-main relative z-10 mt-4 flex flex-1 items-start sm:mt-6 sm:items-center">
-        <div className="w-full">
+      <div className="container-main relative z-10 mt-4 flex flex-1 items-start overflow-y-auto sm:mt-6 sm:items-center">
+        <div className="w-full pb-4">
           <AnimatePresence mode="wait" custom={direction} onExitComplete={() => setIsAnimating(false)}>
             <motion.div
               key={active}
@@ -291,25 +291,26 @@ export function YourCaseClient() {
               animate="center"
               exit="exit"
               transition={{ duration: 0.45, ease: [0.25, 0.46, 0.45, 0.94] }}
-              className="grid gap-4 lg:grid-cols-[1fr_1.1fr] lg:gap-6"
+              className="grid gap-3 lg:grid-cols-[1fr_1.1fr] lg:gap-6"
             >
               {/* Left: step info */}
-              <div className="glass rounded-2xl p-5 sm:rounded-3xl sm:p-7" style={{ borderColor: `${step.accent}40` }}>
+              <div className="glass rounded-2xl p-4 sm:rounded-3xl sm:p-7" style={{ borderColor: `${step.accent}40` }}>
                 <div className="flex items-start justify-between">
                   <div>
                     <span
-                      className="inline-block rounded-full px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-widest sm:px-3 sm:py-1 sm:text-xs"
+                      className="inline-block rounded-full px-2 py-0.5 text-[9px] font-semibold uppercase tracking-widest sm:px-3 sm:py-1 sm:text-xs"
                       style={{ background: `${step.accent}22`, color: step.accent }}
                     >
                       {step.tag}
                     </span>
-                    <p className="mt-2 text-4xl font-black opacity-10 sm:text-5xl lg:text-6xl">{step.number}</p>
+                    <p className="mt-1.5 text-3xl font-black opacity-10 sm:mt-2 sm:text-5xl lg:text-6xl">{step.number}</p>
                   </div>
                   <motion.div
                     initial={{ rotate: -15, scale: 0.8, opacity: 0 }}
                     animate={{ rotate: 0, scale: 1, opacity: 1 }}
                     transition={{ delay: 0.15, duration: 0.4 }}
                     style={{ color: step.accent }}
+                    className="h-6 w-6 sm:h-8 sm:w-8"
                   >
                     {step.icon}
                   </motion.div>
@@ -319,7 +320,7 @@ export function YourCaseClient() {
                   initial={{ opacity: 0, y: 12 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.1, duration: 0.4 }}
-                  className="mt-1 text-xl font-bold leading-tight sm:text-2xl lg:text-3xl"
+                  className="mt-1 text-lg font-bold leading-tight sm:text-2xl lg:text-3xl"
                 >
                   {step.title}
                 </motion.h2>
@@ -328,53 +329,53 @@ export function YourCaseClient() {
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ delay: 0.18 }}
-                  className="mt-1 flex items-center gap-2"
+                  className="mt-1 flex items-center gap-1.5"
                 >
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="h-3.5 w-3.5 text-gray-400">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="h-3 w-3 text-gray-400 sm:h-3.5 sm:w-3.5">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                   </svg>
-                  <span className="text-xs text-gray-400 sm:text-sm">{step.duration}</span>
+                  <span className="text-[11px] text-gray-400 sm:text-xs">{step.duration}</span>
                 </motion.div>
 
                 <motion.p
                   initial={{ opacity: 0, y: 8 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.2, duration: 0.4 }}
-                  className="mt-3 text-sm leading-relaxed text-gray-300 sm:mt-5"
+                  className="mt-3 text-xs leading-relaxed text-gray-300 sm:mt-4 sm:text-sm"
                 >
                   {step.description}
                 </motion.p>
 
                 {/* Nav arrows */}
-                <div className="mt-5 flex items-center gap-2 sm:mt-8 sm:gap-3">
+                <div className="mt-4 flex items-center gap-2 sm:mt-6">
                   <button
                     onClick={() => goTo(active - 1, -1)}
                     disabled={active === 0}
-                    className="flex h-9 w-9 items-center justify-center rounded-xl border border-white/10 bg-white/5 transition hover:bg-white/10 disabled:opacity-25"
+                    className="flex h-8 w-8 items-center justify-center rounded-xl border border-white/10 bg-white/5 transition hover:bg-white/10 disabled:opacity-25 sm:h-9 sm:w-9"
                     aria-label="Предыдущий этап"
                   >
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="h-4 w-4">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="h-3.5 w-3.5 sm:h-4 sm:w-4">
                       <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
                     </svg>
                   </button>
                   <button
                     onClick={() => goTo(active + 1, 1)}
                     disabled={active === TOTAL - 1}
-                    className="flex h-9 w-9 items-center justify-center rounded-xl transition disabled:opacity-25"
+                    className="flex h-8 w-8 items-center justify-center rounded-xl transition disabled:opacity-25 sm:h-9 sm:w-9"
                     style={{ background: step.accent, color: "#111827" }}
                     aria-label="Следующий этап"
                   >
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="h-4 w-4">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="h-3.5 w-3.5 sm:h-4 sm:w-4">
                       <path strokeLinecap="round" strokeLinejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
                     </svg>
                   </button>
                   {active === TOTAL - 1 && (
-                    <Link href="/contact" className="btn-primary ml-1 text-xs sm:ml-2 sm:text-sm">
+                    <Link href="/contact" className="btn-primary ml-1 text-[11px] sm:ml-2 sm:text-sm">
                       Начать проект →
                     </Link>
                   )}
                   {active < TOTAL - 1 && (
-                    <span className="ml-2 hidden text-xs text-gray-500 sm:inline">
+                    <span className="ml-1 hidden text-[11px] text-gray-500 sm:ml-2 sm:inline sm:text-xs">
                       Следующий: {STEPS[active + 1].tag}
                     </span>
                   )}
@@ -382,28 +383,28 @@ export function YourCaseClient() {
               </div>
 
               {/* Right: details */}
-              <div className="flex flex-col gap-3 sm:gap-4">
+              <div className="flex flex-col gap-2.5 sm:gap-3 lg:gap-4">
                 {/* Detail list */}
-                <div className={`glass rounded-2xl bg-gradient-to-br p-5 sm:rounded-3xl sm:p-7 ${step.color}`} style={{ borderColor: `${step.accent}30` }}>
-                  <p className="mb-3 text-[10px] font-semibold uppercase tracking-widest sm:mb-4 sm:text-xs" style={{ color: step.accent }}>
+                <div className={`glass rounded-2xl bg-gradient-to-br p-4 sm:rounded-3xl sm:p-5 lg:p-7 ${step.color}`} style={{ borderColor: `${step.accent}30` }}>
+                  <p className="mb-2.5 text-[9px] font-semibold uppercase tracking-widest sm:mb-3 sm:text-[10px] lg:text-xs" style={{ color: step.accent }}>
                     Что это значит для вас
                   </p>
-                  <div className="space-y-2.5 sm:space-y-3">
+                  <div className="space-y-2 sm:space-y-2.5">
                     {step.details.map((d, i) => (
                       <motion.div
                         key={d}
                         initial={{ opacity: 0, x: 20 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ delay: 0.15 + i * 0.07, duration: 0.35 }}
-                        className="flex items-start gap-2.5 sm:gap-3"
+                        className="flex items-start gap-2 sm:gap-2.5"
                       >
                         <span
-                          className="flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full text-[10px] font-bold sm:h-6 sm:w-6 sm:text-xs"
+                          className="flex h-4 w-4 flex-shrink-0 items-center justify-center rounded-full text-[9px] font-bold sm:h-5 sm:w-5 sm:text-[10px]"
                           style={{ background: `${step.accent}25`, color: step.accent }}
                         >
                           ✓
                         </span>
-                        <span className="text-xs leading-relaxed text-gray-200 sm:text-sm">{d}</span>
+                        <span className="text-[11px] leading-relaxed text-gray-200 sm:text-xs">{d}</span>
                       </motion.div>
                     ))}
                   </div>
@@ -418,27 +419,27 @@ export function YourCaseClient() {
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0 }}
                       transition={{ duration: 0.4 }}
-                      className="glass rounded-2xl p-5 sm:rounded-3xl sm:p-6"
+                      className="glass rounded-2xl p-4 sm:rounded-3xl sm:p-5"
                       style={{ borderColor: "#cbe85740" }}
                     >
-                      <p className="text-[10px] uppercase tracking-widest text-lime-300/70 sm:text-xs">Вы прошли все 7 этапов</p>
-                      <p className="mt-1.5 text-lg font-bold sm:mt-2 sm:text-xl">Готовы запустить свой проект?</p>
-                      <p className="mt-1.5 text-xs text-gray-400 sm:mt-2 sm:text-sm">
+                      <p className="text-[9px] uppercase tracking-widest text-lime-300/70 sm:text-[10px]">Вы прошли все 7 этапов</p>
+                      <p className="mt-1.5 text-base font-bold sm:mt-2 sm:text-lg">Готовы запустить свой проект?</p>
+                      <p className="mt-1.5 text-[11px] text-gray-400 sm:mt-2 sm:text-xs">
                         Напишите — расскажу, сколько займёт именно ваша задача и что будет на каждом шаге.
                       </p>
-                      <div className="mt-4 flex flex-col gap-2 sm:flex-row sm:gap-3">
-                        <Link href="/contact" className="btn-primary w-full justify-center text-sm">
+                      <div className="mt-3 flex flex-col gap-2 sm:mt-4">
+                        <Link href="/contact" className="btn-primary w-full justify-center text-xs sm:text-sm">
                           Начать проект →
                         </Link>
-                        <Link href="https://t.me/nerdServ" target="_blank" rel="noopener noreferrer" className="btn-secondary w-full justify-center text-sm">
+                        <Link href="https://t.me/nerdServ" target="_blank" rel="noopener noreferrer" className="btn-secondary w-full justify-center text-xs sm:text-sm">
                           Написать в Telegram
                         </Link>
                       </div>
-                      <div className="mt-3 flex justify-around border-t border-white/8 pt-3">
+                      <div className="mt-3 flex justify-around border-t border-white/8 pt-2.5 sm:pt-3">
                         {[["40+", "проектов"], ["1 час", "ответ"], ["2 нед.", "гарантия"]].map(([v, l]) => (
                           <div key={l} className="text-center">
-                            <p className="text-sm font-black text-lime-300">{v}</p>
-                            <p className="text-[9px] text-gray-500 sm:text-[10px]">{l}</p>
+                            <p className="text-xs font-black text-lime-300 sm:text-sm">{v}</p>
+                            <p className="text-[8px] text-gray-500 sm:text-[9px]">{l}</p>
                           </div>
                         ))}
                       </div>
@@ -450,24 +451,24 @@ export function YourCaseClient() {
                       animate={{ opacity: 1 }}
                       exit={{ opacity: 0 }}
                       transition={{ duration: 0.3 }}
-                      className="glass rounded-2xl p-4 sm:rounded-3xl sm:p-5"
+                      className="glass rounded-2xl p-3 sm:rounded-3xl sm:p-4"
                     >
-                      <p className="mb-2 text-[10px] font-semibold uppercase tracking-widest text-gray-500 sm:mb-3 sm:text-xs">Все этапы</p>
-                      <div className="grid grid-cols-4 gap-1 sm:gap-2">
+                      <p className="mb-2 text-[9px] font-semibold uppercase tracking-widest text-gray-500 sm:text-[10px]">Все этапы</p>
+                      <div className="grid grid-cols-4 gap-1 sm:gap-1.5">
                         {STEPS.map((s, i) => (
                           <button
                             key={i}
                             onClick={() => goTo(i, i > active ? 1 : -1)}
-                            className="rounded-lg p-1.5 text-left transition hover:bg-white/5 sm:rounded-xl sm:p-2"
+                            className="rounded-lg p-1 text-left transition hover:bg-white/5 sm:rounded-xl sm:p-1.5"
                           >
                             <motion.div
                               animate={{ opacity: i === active ? 1 : i < active ? 0.6 : 0.3 }}
                               transition={{ duration: 0.3 }}
                             >
-                              <p className="text-[10px] font-bold sm:text-xs" style={{ color: i === active ? step.accent : i < active ? "#6b7280" : "#374151" }}>
+                              <p className="text-[9px] font-bold sm:text-[10px]" style={{ color: i === active ? step.accent : i < active ? "#6b7280" : "#374151" }}>
                                 {s.number}
                               </p>
-                              <p className="mt-0.5 hidden text-[8px] leading-tight text-gray-500 sm:block sm:text-[10px]">{s.tag}</p>
+                              <p className="mt-0.5 hidden text-[7px] leading-tight text-gray-500 sm:block sm:text-[8px]">{s.tag}</p>
                             </motion.div>
                           </button>
                         ))}

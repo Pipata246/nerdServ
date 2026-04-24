@@ -35,7 +35,7 @@ export function TestimonialsSlider() {
       </div>
 
       {/* Quote */}
-      <div className="relative min-h-[9rem] flex-1">
+      <div className="flex-1">
         <AnimatePresence mode="wait" custom={direction}>
           <motion.div
             key={index}
@@ -45,12 +45,11 @@ export function TestimonialsSlider() {
             animate="center"
             exit="exit"
             transition={{ duration: 0.3, ease: "easeInOut" }}
-            className="absolute inset-0"
           >
             <svg className="mb-2 h-6 w-6 text-lime-300/40" fill="currentColor" viewBox="0 0 24 24">
               <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
             </svg>
-            <p className="text-base leading-relaxed text-gray-200">{t.text}</p>
+            <p className="text-sm leading-relaxed text-gray-200 sm:text-base">{t.text}</p>
           </motion.div>
         </AnimatePresence>
       </div>
