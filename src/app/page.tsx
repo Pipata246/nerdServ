@@ -182,11 +182,37 @@ export default function HomePage() {
           </Reveal>
           <div className="grid gap-4 lg:grid-cols-[2fr_1fr]">
             <TestimonialsSlider />
-            <div className="glass rounded-2xl p-5">
-              <p className="text-sm text-gray-300">Средняя оценка по обратной связи</p>
-              <p className="mt-2 text-3xl font-bold text-lime-300">5 / 5</p>
-              <p className="mt-3 text-sm text-gray-300">На основе отзывов по сайтам, ботам и автоматизации процессов.</p>
-              <Link href="/contact" className="btn-primary mt-5 w-full justify-center">
+            <div className="glass flex flex-col gap-4 rounded-2xl p-5">
+              {/* Rating */}
+              <div className="rounded-xl bg-lime-300/8 p-4">
+                <p className="text-xs uppercase tracking-widest text-gray-400">Средняя оценка</p>
+                <div className="mt-2 flex items-end gap-2">
+                  <span className="text-4xl font-black text-lime-300">5.0</span>
+                  <span className="mb-1 text-lg text-gray-500">/ 5</span>
+                </div>
+                <div className="mt-2 flex gap-1">
+                  {Array.from({ length: 5 }).map((_, i) => (
+                    <svg key={i} viewBox="0 0 20 20" fill="currentColor" className="h-4 w-4 text-lime-300">
+                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                    </svg>
+                  ))}
+                </div>
+              </div>
+              {/* Stats */}
+              <div className="grid grid-cols-2 gap-3">
+                <div className="rounded-xl border border-white/8 bg-white/3 p-3 text-center">
+                  <p className="text-2xl font-bold text-white">12</p>
+                  <p className="mt-0.5 text-xs text-gray-400">отзывов</p>
+                </div>
+                <div className="rounded-xl border border-white/8 bg-white/3 p-3 text-center">
+                  <p className="text-2xl font-bold text-white">40+</p>
+                  <p className="mt-0.5 text-xs text-gray-400">проектов</p>
+                </div>
+              </div>
+              <p className="text-xs leading-relaxed text-gray-400">
+                Отзывы по сайтам, Telegram-ботам и автоматизации процессов.
+              </p>
+              <Link href="/contact" className="btn-primary mt-auto w-full justify-center">
                 Обсудить ваш проект
               </Link>
             </div>
