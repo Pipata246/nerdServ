@@ -96,6 +96,33 @@ ${body.message}
       );
     }
 
+    const telegramPayload: {
+      chat_id: string;
+      text: string;
+      parse_mode: string;
+      reply_markup?: {
+        inline_keyboard: Array<Array<{ text: string; url: string }>>;
+      };
+    } = {
+      chat_id: TELEGRAM_CHAT_ID,
+      text: message,
+      parse_mode: "HTML",
+    };
+
+    // Добавляем кнопку только если есть ссылка
+    if (contactLink) {
+      telegramPayload.reply_markup = {
+        inline_keyboard: [
+          [
+            {
+              text: `💬 Написать в ${channelName}`,
+              url: contactLink,
+            },
+          ],
+        ],
+      };
+    }
+
     const telegramResponse = await fetch(
       `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`,
       {
@@ -103,23 +130,7 @@ ${body.message}
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          chat_id: TELEGRAM_CHAT_ID,
-          text: message,
-          parse_mode: "HTML",
-          reply_markup: contactLink
-            ? {
-                inline_keyboard: [
-                  [
-                    {
-                      text: `💬 Написать в ${channelName}`,
-                      url: contactLink,
-                    },
-                  ],
-                ],
-              }
-            : undefined,
-        }),
+        body: JSON.stringify(telegramPayload),
       }
     );
 
