@@ -129,11 +129,18 @@ export function ContactContent() {
 
         if (response.ok || response.status === 200) {
           setSuccess(true);
+          // Очищаем состояния
           setServiceValue("");
           setContactWayValue("telegram");
           setCountryCodeValue("+7");
           setErrors({});
-          e.currentTarget.reset();
+          // Очищаем форму
+          const form = e.currentTarget;
+          form.reset();
+          // Сбрасываем чекбокс вручную
+          const checkbox = form.querySelector('input[type="checkbox"]') as HTMLInputElement;
+          if (checkbox) checkbox.checked = false;
+          
           setTimeout(() => setSuccess(false), 2200);
         } else {
           console.error("Server error:", data);
@@ -144,11 +151,18 @@ export function ContactContent() {
         // Если ошибка сети, но форма заполнена правильно - считаем успехом
         // (сообщение может дойти, но ответ не вернуться из-за таймаута)
         setSuccess(true);
+        // Очищаем состояния
         setServiceValue("");
         setContactWayValue("telegram");
         setCountryCodeValue("+7");
         setErrors({});
-        e.currentTarget.reset();
+        // Очищаем форму
+        const form = e.currentTarget;
+        form.reset();
+        // Сбрасываем чекбокс вручную
+        const checkbox = form.querySelector('input[type="checkbox"]') as HTMLInputElement;
+        if (checkbox) checkbox.checked = false;
+        
         setTimeout(() => setSuccess(false), 2200);
       } finally {
         setSubmitting(false);

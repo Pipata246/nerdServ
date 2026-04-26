@@ -114,13 +114,15 @@ export function LeadModal({ open, onClose }: { open: boolean; onClose: () => voi
 
       if (response.ok || response.status === 200) {
         setSent(true);
+        // Очищаем состояния
+        setService("site");
+        setContactWay("telegram");
+        setCountryCode("+7");
+        setErrors({});
+        
         setTimeout(() => {
           setSent(false);
           onClose();
-          setService("site");
-          setContactWay("telegram");
-          setCountryCode("+7");
-          setErrors({});
         }, 1000);
       } else {
         console.error("Server error:", data);
@@ -130,13 +132,15 @@ export function LeadModal({ open, onClose }: { open: boolean; onClose: () => voi
       console.error("Network error:", error);
       // Если ошибка сети, но форма заполнена правильно - считаем успехом
       setSent(true);
+      // Очищаем состояния
+      setService("site");
+      setContactWay("telegram");
+      setCountryCode("+7");
+      setErrors({});
+      
       setTimeout(() => {
         setSent(false);
         onClose();
-        setService("site");
-        setContactWay("telegram");
-        setCountryCode("+7");
-        setErrors({});
       }, 1000);
     } finally {
       setSubmitting(false);
