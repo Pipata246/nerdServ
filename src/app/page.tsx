@@ -79,9 +79,9 @@ export default function HomePage() {
               }
             ].map((item, i) => (
               <Reveal key={item.title} delay={i * 0.12}>
-                <div className="glass rounded-2xl p-6">
+                <div className="glass rounded-2xl p-6 h-full flex flex-col">
                   <h3 className="text-lg font-semibold">{item.title}</h3>
-                  <p className="mt-2 text-sm text-gray-300">{item.text}</p>
+                  <p className="mt-2 text-sm text-gray-300 flex-1">{item.text}</p>
                 </div>
               </Reveal>
             ))}
