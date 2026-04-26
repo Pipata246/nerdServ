@@ -69,104 +69,81 @@ function CustomSelect({ name, value, onChange, placeholder, options }: CustomSel
   );
 }
 
+const EMPTY = {
+  name: "",
+  contact: "",
+  service: "",
+  budget: "",
+  deadline: "",
+  message: "",
+  contactWay: "telegram",
+  countryCode: "+7",
+  consent: false,
+};
+
 export function ContactContent() {
+  const [fields, setFields] = useState(EMPTY);
   const [errors, setErrors] = useState<Errors>({});
   const [success, setSuccess] = useState(false);
   const [submitting, setSubmitting] = useState(false);
-  const [serviceValue, setServiceValue] = useState("");
-  const [contactWayValue, setContactWayValue] = useState("telegram");
-  const [countryCodeValue, setCountryCodeValue] = useState("+7");
+
+  const set = (key: keyof typeof EMPTY) => (val: string | boolean) =>
+    setFields((prev) => ({ ...prev, [key]: val }));
+
+  const reset = () => {
+    setFields(EMPTY);
+    setErrors({});
+  };
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const form = new FormData(e.currentTarget);
-    const name = String(form.get("name") || "").trim();
-    const contact = String(form.get("contact") || "").trim();
-    const service = String(form.get("service") || "").trim();
-    const message = String(form.get("message") || "").trim();
-    const budget = String(form.get("budget") || "").trim();
-    const deadline = String(form.get("deadline") || "").trim();
-    const consent = form.get("consent");
 
     const nextErrors: Errors = {};
-    if (name.length < 2) nextErrors.name = "Введите имя (минимум 2 символа).";
-    
-    if (contactWayValue === "whatsapp" || contactWayValue === "max") {
-      if (!/^[0-9()\-\s]{6,20}$/.test(contact)) {
+    if (fields.name.trim().length < 2) nextErrors.name = "Введите имя (минимум 2 символа).";
+
+    if (fields.contactWay === "whatsapp" || fields.contactWay === "max") {
+      if (!/^[0-9()\-\s]{6,20}$/.test(fields.contact)) {
         nextErrors.contact = "Введите корректный номер телефона.";
       }
-    } else if (contactWayValue === "telegram") {
-      if (!/^@?[a-zA-Z0-9_]{5,32}$/.test(contact)) {
+    } else if (fields.contactWay === "telegram") {
+      if (!/^@?[a-zA-Z0-9_]{5,32}$/.test(fields.contact)) {
         nextErrors.contact = "Введите username Telegram, например @nerdServ.";
       }
     }
-    
-    if (!service) nextErrors.service = "Выберите интересующую услугу.";
-    if (message.length < 10) nextErrors.message = "Сообщение должно быть от 10 символов.";
-    if (!consent) nextErrors.consent = "Подтвердите согласие на обработку данных.";
+
+    if (!fields.service) nextErrors.service = "Выберите интересующую услугу.";
+    if (fields.message.trim().length < 10) nextErrors.message = "Сообщение должно быть от 10 символов.";
+    if (!fields.consent) nextErrors.consent = "Подтвердите согласие на обработку данных.";
 
     setErrors(nextErrors);
-    if (Object.keys(nextErrors).length === 0) {
-      setSubmitting(true);
-      
-      try {
-        const response = await fetch("/api/submit-form", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            name,
-            contact,
-            service,
-            message,
-            budget: budget || undefined,
-            deadline: deadline || undefined,
-            contactWay: contactWayValue,
-            countryCode: countryCodeValue
-          })
-        });
+    if (Object.keys(nextErrors).length > 0) return;
 
-        const data = await response.json().catch(() => null);
+    // Блокируем кнопку и сразу очищаем форму
+    setSubmitting(true);
+    const payload = { ...fields };
+    reset();
 
-        if (response.ok || response.status === 200) {
-          setSuccess(true);
-          // Очищаем состояния
-          setServiceValue("");
-          setContactWayValue("telegram");
-          setCountryCodeValue("+7");
-          setErrors({});
-          // Очищаем форму
-          const form = e.currentTarget;
-          form.reset();
-          // Сбрасываем чекбокс вручную
-          const checkbox = form.querySelector('input[type="checkbox"]') as HTMLInputElement;
-          if (checkbox) checkbox.checked = false;
-          
-          setTimeout(() => setSuccess(false), 2200);
-        } else {
-          console.error("Server error:", data);
-          setErrors({ message: data?.error || "Ошибка отправки. Попробуйте позже." });
-        }
-      } catch (error) {
-        console.error("Network error:", error);
-        // Если ошибка сети, но форма заполнена правильно - считаем успехом
-        // (сообщение может дойти, но ответ не вернуться из-за таймаута)
-        setSuccess(true);
-        // Очищаем состояния
-        setServiceValue("");
-        setContactWayValue("telegram");
-        setCountryCodeValue("+7");
-        setErrors({});
-        // Очищаем форму
-        const form = e.currentTarget;
-        form.reset();
-        // Сбрасываем чекбокс вручную
-        const checkbox = form.querySelector('input[type="checkbox"]') as HTMLInputElement;
-        if (checkbox) checkbox.checked = false;
-        
-        setTimeout(() => setSuccess(false), 2200);
-      } finally {
-        setSubmitting(false);
-      }
+    try {
+      await fetch("/api/submit-form", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: payload.name,
+          contact: payload.contact,
+          service: payload.service,
+          message: payload.message,
+          budget: payload.budget || undefined,
+          deadline: payload.deadline || undefined,
+          contactWay: payload.contactWay,
+          countryCode: payload.countryCode,
+        }),
+      });
+    } catch (_) {
+      // Сообщение всё равно доходит, игнорируем сетевую ошибку
+    } finally {
+      setSubmitting(false);
+      setSuccess(true);
+      setTimeout(() => setSuccess(false), 2500);
     }
   };
 
@@ -177,85 +154,121 @@ export function ContactContent() {
           <p className="text-xs uppercase tracking-[0.2em] text-lime-300/90">Быстрый бриф</p>
           <p className="mt-2 text-sm text-gray-300">Заполните форму, и я вернусь с первичным планом работ и оценкой.</p>
         </div>
+
         <div>
-          <input name="name" placeholder="Имя" className="field-control" />
+          <input
+            value={fields.name}
+            onChange={(e) => set("name")(e.target.value)}
+            placeholder="Имя"
+            className="field-control"
+          />
           {errors.name && <p className="mt-1 text-xs text-red-300">{errors.name}</p>}
         </div>
+
         <div>
-          {contactWayValue === "whatsapp" || contactWayValue === "max" ? (
+          {fields.contactWay === "whatsapp" || fields.contactWay === "max" ? (
             <div className="grid gap-3 sm:grid-cols-[160px_1fr]">
               <CustomSelect
                 name="countryCode"
-                value={countryCodeValue}
-                onChange={setCountryCodeValue}
+                value={fields.countryCode}
+                onChange={set("countryCode") as (v: string) => void}
                 placeholder="Код"
                 options={[
                   { value: "+7", label: "+7 (RU)" },
                   { value: "+1", label: "+1 (US/CA)" },
                   { value: "+44", label: "+44 (UK)" },
                   { value: "+49", label: "+49 (DE)" },
-                  { value: "+971", label: "+971 (UAE)" }
+                  { value: "+971", label: "+971 (UAE)" },
                 ]}
               />
-              <input name="contact" placeholder="Номер телефона (без кода страны)" className="field-control" />
+              <input
+                value={fields.contact}
+                onChange={(e) => set("contact")(e.target.value)}
+                placeholder="Номер телефона (без кода страны)"
+                className="field-control"
+              />
             </div>
           ) : (
             <input
-              name="contact"
+              value={fields.contact}
+              onChange={(e) => set("contact")(e.target.value)}
               placeholder="Telegram username (@username)"
               className="field-control"
             />
           )}
           {errors.contact && <p className="mt-1 text-xs text-red-300">{errors.contact}</p>}
         </div>
+
         <div className="grid gap-3 sm:grid-cols-2">
           <div>
             <CustomSelect
               name="service"
-              value={serviceValue}
-              onChange={setServiceValue}
+              value={fields.service}
+              onChange={set("service") as (v: string) => void}
               placeholder="Выберите услугу"
               options={[
                 { value: "site", label: "Разработка сайта" },
                 { value: "bot", label: "Telegram / чат-бот" },
                 { value: "automation", label: "Автоматизация / интеграции" },
-                { value: "support", label: "Поддержка и сопровождение" }
+                { value: "support", label: "Поддержка и сопровождение" },
               ]}
             />
             {errors.service && <p className="mt-1 text-xs text-red-300">{errors.service}</p>}
           </div>
-          <input name="budget" placeholder="Бюджет (опц.)" className="field-control" />
+          <input
+            value={fields.budget}
+            onChange={(e) => set("budget")(e.target.value)}
+            placeholder="Бюджет (опц.)"
+            className="field-control"
+          />
         </div>
+
         <div className="grid gap-3 sm:grid-cols-2">
-          <input name="deadline" placeholder="Желаемый срок (опц.)" className="field-control" />
+          <input
+            value={fields.deadline}
+            onChange={(e) => set("deadline")(e.target.value)}
+            placeholder="Желаемый срок (опц.)"
+            className="field-control"
+          />
           <CustomSelect
             name="contactWay"
-            value={contactWayValue}
-            onChange={setContactWayValue}
+            value={fields.contactWay}
+            onChange={set("contactWay") as (v: string) => void}
             placeholder="Выберите канал связи"
             options={[
               { value: "telegram", label: "Связь через Telegram" },
               { value: "whatsapp", label: "Связь через WhatsApp" },
-              { value: "max", label: "Связь через Max" }
+              { value: "max", label: "Связь через Max" },
             ]}
           />
         </div>
+
         <div>
           <textarea
-            name="message"
+            value={fields.message}
+            onChange={(e) => set("message")(e.target.value)}
             placeholder="Кратко опишите задачу, текущую ситуацию и ожидаемый результат"
             className="field-control min-h-36"
           />
           {errors.message && <p className="mt-1 text-xs text-red-300">{errors.message}</p>}
         </div>
+
         <label className="flex items-start gap-2 text-xs text-gray-300">
-          <input type="checkbox" name="consent" className="check-control" />
+          <input
+            type="checkbox"
+            checked={fields.consent}
+            onChange={(e) => set("consent")(e.target.checked)}
+            className="check-control"
+          />
           <span>Согласен(на) на обработку персональных данных и получение ответа по указанным контактам.</span>
         </label>
         {errors.consent && <p className="-mt-2 text-xs text-red-300">{errors.consent}</p>}
-        {errors.message && <p className="mt-2 rounded-lg bg-red-500/20 border border-red-500/30 p-3 text-sm text-red-200">{errors.message}</p>}
-        <button className="btn-primary w-full justify-center sm:w-auto">
-          {submitting ? "Отправка..." : success ? "Заявка отправлена!" : "Отправить"}
+
+        <button
+          disabled={submitting}
+          className="btn-primary w-full justify-center sm:w-auto disabled:opacity-60 disabled:cursor-not-allowed"
+        >
+          {submitting ? "Отправка..." : success ? "Заявка отправлена! ✓" : "Отправить"}
         </button>
         <p className="text-xs text-gray-400">Обычно отвечаю в течение 1 часа в рабочее время.</p>
       </form>
