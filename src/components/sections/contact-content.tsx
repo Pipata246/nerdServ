@@ -133,10 +133,12 @@ export function ContactContent() {
           e.currentTarget.reset();
           setTimeout(() => setSuccess(false), 2200);
         } else {
-          const error = await response.json();
+          const error = await response.json().catch(() => ({ error: "Неизвестная ошибка" }));
+          console.error("Server error:", error);
           setErrors({ message: error.error || "Ошибка отправки. Попробуйте позже." });
         }
       } catch (error) {
+        console.error("Network error:", error);
         setErrors({ message: "Ошибка соединения. Проверьте интернет." });
       } finally {
         setSubmitting(false);
@@ -227,6 +229,7 @@ export function ContactContent() {
           <span>Согласен(на) на обработку персональных данных и получение ответа по указанным контактам.</span>
         </label>
         {errors.consent && <p className="-mt-2 text-xs text-red-300">{errors.consent}</p>}
+        {errors.message && <p className="mt-2 rounded-lg bg-red-500/20 border border-red-500/30 p-3 text-sm text-red-200">{errors.message}</p>}
         <button className="btn-primary w-full justify-center sm:w-auto">
           {submitting ? "Отправка..." : success ? "Заявка отправлена!" : "Отправить"}
         </button>

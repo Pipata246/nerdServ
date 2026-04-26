@@ -122,10 +122,12 @@ export function LeadModal({ open, onClose }: { open: boolean; onClose: () => voi
           setErrors({});
         }, 1000);
       } else {
-        const error = await response.json();
+        const error = await response.json().catch(() => ({ error: "Неизвестная ошибка" }));
+        console.error("Server error:", error);
         setErrors({ message: error.error || "Ошибка отправки" });
       }
     } catch (error) {
+      console.error("Network error:", error);
       setErrors({ message: "Ошибка соединения" });
     } finally {
       setSubmitting(false);
@@ -219,6 +221,7 @@ export function LeadModal({ open, onClose }: { open: boolean; onClose: () => voi
               <span>Согласен(на) на обработку персональных данных.</span>
             </label>
             {errors.consent && <p className="-mt-2 text-xs text-red-300">{errors.consent}</p>}
+            {errors.message && <p className="mt-2 rounded-lg bg-red-500/20 border border-red-500/30 p-3 text-sm text-red-200">{errors.message}</p>}
 
             <button className="btn-primary w-full justify-center">{submitting ? "Отправка..." : sent ? "Отправлено" : "Отправить"}</button>
           </motion.form>

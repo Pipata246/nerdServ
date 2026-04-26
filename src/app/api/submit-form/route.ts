@@ -86,9 +86,12 @@ ${body.message}
     const TELEGRAM_CHAT_ID = process.env.TELEGRAM_CHAT_ID;
 
     if (!TELEGRAM_BOT_TOKEN || !TELEGRAM_CHAT_ID) {
-      console.error("Telegram credentials not configured");
+      console.error("Telegram credentials not configured", {
+        hasToken: !!TELEGRAM_BOT_TOKEN,
+        hasChat: !!TELEGRAM_CHAT_ID
+      });
       return NextResponse.json(
-        { error: "Сервер не настроен" },
+        { error: "Переменные окружения не настроены на Vercel. Добавьте TELEGRAM_BOT_TOKEN и TELEGRAM_CHAT_ID в Settings → Environment Variables" },
         { status: 500 }
       );
     }
@@ -123,8 +126,27 @@ ${body.message}
     if (!telegramResponse.ok) {
       const error = await telegramResponse.text();
       console.error("Telegram API error:", error);
+      
+      // Парсим ошибку от Telegram
+      let errorMessage = "Ошибка отправки в Telegram";
+      try {
+        const errorData = JSON.parse(error);
+        if (errorData.description) {
+          if (errorData.description.includes("chat not found")) {
+            errorMessage = "Бот не может отправить сообщение. Напишите боту /start в Telegram";
+          } else if (errorData.description.includes("Unauthorized")) {
+            errorMessage = "Неправильный токен бота. Проверьте TELEGRAM_BOT_TOKEN";
+          } else {
+            errorMessage = errorData.description;
+          }
+        }
+      } catch (e) {
+        // Если не JSON, используем текст как есть
+        errorMessage = error;
+      }
+      
       return NextResponse.json(
-        { error: "Ошибка отправки сообщения" },
+        { error: errorMessage },
         { status: 500 }
       );
     }
