@@ -77,13 +77,15 @@ export function ContactContent() {
   const [contactWayValue, setContactWayValue] = useState("telegram");
   const [countryCodeValue, setCountryCodeValue] = useState("+7");
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const form = new FormData(e.currentTarget);
     const name = String(form.get("name") || "").trim();
     const contact = String(form.get("contact") || "").trim();
     const service = String(form.get("service") || "").trim();
     const message = String(form.get("message") || "").trim();
+    const budget = String(form.get("budget") || "").trim();
+    const deadline = String(form.get("deadline") || "").trim();
     const consent = form.get("consent");
 
     const nextErrors: Errors = {};
@@ -106,15 +108,39 @@ export function ContactContent() {
     setErrors(nextErrors);
     if (Object.keys(nextErrors).length === 0) {
       setSubmitting(true);
-      setTimeout(() => {
+      
+      try {
+        const response = await fetch("/api/submit-form", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            name,
+            contact,
+            service,
+            message,
+            budget: budget || undefined,
+            deadline: deadline || undefined,
+            contactWay: contactWayValue,
+            countryCode: countryCodeValue
+          })
+        });
+
+        if (response.ok) {
+          setSuccess(true);
+          setServiceValue("");
+          setContactWayValue("telegram");
+          setCountryCodeValue("+7");
+          e.currentTarget.reset();
+          setTimeout(() => setSuccess(false), 2200);
+        } else {
+          const error = await response.json();
+          setErrors({ message: error.error || "Ошибка отправки. Попробуйте позже." });
+        }
+      } catch (error) {
+        setErrors({ message: "Ошибка соединения. Проверьте интернет." });
+      } finally {
         setSubmitting(false);
-        setSuccess(true);
-        setServiceValue("");
-        setContactWayValue("telegram");
-        setCountryCodeValue("+7");
-        e.currentTarget.reset();
-        setTimeout(() => setSuccess(false), 2200);
-      }, 800);
+      }
     }
   };
 

@@ -75,7 +75,7 @@ export function LeadModal({ open, onClose }: { open: boolean; onClose: () => voi
   const [countryCode, setCountryCode] = useState("+7");
   const [errors, setErrors] = useState<Errors>({});
 
-  const submit = (e: FormEvent) => {
+  const submit = async (e: FormEvent) => {
     e.preventDefault();
     const form = new FormData(e.currentTarget as HTMLFormElement);
     const name = String(form.get("name") || "").trim();
@@ -95,14 +95,41 @@ export function LeadModal({ open, onClose }: { open: boolean; onClose: () => voi
     if (Object.keys(nextErrors).length > 0) return;
 
     setSubmitting(true);
-    setTimeout(() => {
+    
+    try {
+      const response = await fetch("/api/submit-form", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name,
+          contact,
+          service,
+          message,
+          contactWay,
+          countryCode
+        })
+      });
+
+      if (response.ok) {
+        setSent(true);
+        setTimeout(() => {
+          setSent(false);
+          onClose();
+          // Сброс формы
+          setService("site");
+          setContactWay("telegram");
+          setCountryCode("+7");
+          setErrors({});
+        }, 1000);
+      } else {
+        const error = await response.json();
+        setErrors({ message: error.error || "Ошибка отправки" });
+      }
+    } catch (error) {
+      setErrors({ message: "Ошибка соединения" });
+    } finally {
       setSubmitting(false);
-      setSent(true);
-      setTimeout(() => {
-        setSent(false);
-        onClose();
-      }, 1000);
-    }, 700);
+    }
   };
 
   return (
