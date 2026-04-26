@@ -72,8 +72,14 @@ export function Footer() {
           </div>
         </div>
       </div>
-      <div className="border-t border-white/10 py-4 text-center text-xs text-gray-500">
-        © {new Date().getFullYear()} NerdServ. Все права защищены.
+      <div className="border-t border-white/10 py-4">
+        <div className="container-main flex flex-col items-center gap-2 sm:flex-row sm:justify-between">
+          <p className="text-xs text-gray-500">© {new Date().getFullYear()} NerdServ. Все права защищены.</p>
+          <div className="flex gap-4 text-xs text-gray-500">
+            <Link href="/privacy" className="transition hover:text-lime-300">Политика конфиденциальности</Link>
+            <Link href="/offer" className="transition hover:text-lime-300">Публичная оферта</Link>
+          </div>
+        </div>
       </div>
     </footer>
   );
