@@ -7,6 +7,7 @@ import { ChevronDown } from "lucide-react";
 type Errors = {
   name?: string;
   contact?: string;
+  service?: string;
   message?: string;
   consent?: string;
 };
@@ -31,7 +32,7 @@ function CustomSelect({ name, value, onChange, options }: CustomSelectProps) {
     return () => window.removeEventListener("click", onClickOutside);
   }, []);
 
-  const currentLabel = options.find((opt) => opt.value === value)?.label || options[0]?.label || "";
+  const currentLabel = options.find((opt) => opt.value === value)?.label || "Выберите услугу";
 
   return (
     <div ref={rootRef} className="relative">
@@ -41,7 +42,7 @@ function CustomSelect({ name, value, onChange, options }: CustomSelectProps) {
         onClick={() => setOpen((prev) => !prev)}
         className={`field-control flex items-center justify-between ${open ? "ring-1 ring-[var(--accent-outline-soft)]" : ""}`}
       >
-        <span>{currentLabel}</span>
+        <span className={value ? "text-[var(--field-text)]" : "text-[var(--field-placeholder)]"}>{currentLabel}</span>
         <ChevronDown className={`h-4 w-4 transition ${open ? "rotate-180" : ""}`} />
       </button>
       {open && (
@@ -70,7 +71,9 @@ function CustomSelect({ name, value, onChange, options }: CustomSelectProps) {
 const EMPTY = {
   name: "",
   contact: "",
-  service: "site",
+  service: "",
+  budget: "",
+  deadline: "",
   message: "",
   contactWay: "telegram",
   countryCode: "+7",
@@ -96,9 +99,18 @@ export function LeadModal({ open, onClose }: { open: boolean; onClose: () => voi
 
     const nextErrors: Errors = {};
     if (fields.name.trim().length < 2) nextErrors.name = "Введите имя (минимум 2 символа).";
-    if (fields.contactWay === "email" && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(fields.contact)) nextErrors.contact = "Введите корректный email.";
-    if (fields.contactWay === "whatsapp" && !/^[0-9()\-\s]{6,20}$/.test(fields.contact)) nextErrors.contact = "Введите корректный номер телефона.";
-    if (fields.contactWay === "telegram" && !/^@?[a-zA-Z0-9_]{5,32}$/.test(fields.contact)) nextErrors.contact = "Введите Telegram username.";
+    
+    if (fields.contactWay === "whatsapp" || fields.contactWay === "max") {
+      if (!/^[0-9()\-\s]{6,20}$/.test(fields.contact)) {
+        nextErrors.contact = "Введите корректный номер телефона.";
+      }
+    } else if (fields.contactWay === "telegram") {
+      if (!/^@?[a-zA-Z0-9_]{5,32}$/.test(fields.contact)) {
+        nextErrors.contact = "Введите username Telegram, например @nerdServ.";
+      }
+    }
+    
+    if (!fields.service) nextErrors.service = "Выберите интересующую услугу.";
     if (fields.message.trim().length < 10) nextErrors.message = "Сообщение должно быть от 10 символов.";
     if (!fields.consent) nextErrors.consent = "Подтвердите согласие на обработку данных.";
 
@@ -119,6 +131,8 @@ export function LeadModal({ open, onClose }: { open: boolean; onClose: () => voi
           contact: payload.contact,
           service: payload.service,
           message: payload.message,
+          budget: payload.budget || undefined,
+          deadline: payload.deadline || undefined,
           contactWay: payload.contactWay,
           countryCode: payload.countryCode,
         }),
@@ -154,7 +168,7 @@ export function LeadModal({ open, onClose }: { open: boolean; onClose: () => voi
             className="glass max-h-[90vh] w-full max-w-2xl space-y-5 overflow-y-auto rounded-2xl p-6 sm:p-8"
           >
             <h3 className="text-3xl font-semibold">Оставить заявку</h3>
-            <p className="text-sm text-gray-300">Коротко опишите задачу, и я предложу формат решения.</p>
+            <p className="text-sm text-gray-300">Заполните форму, и я вернусь с первичным планом работ и оценкой.</p>
 
             <div>
               <input
@@ -166,33 +180,9 @@ export function LeadModal({ open, onClose }: { open: boolean; onClose: () => voi
               {errors.name && <p className="mt-1 text-xs text-red-300">{errors.name}</p>}
             </div>
 
-            <div className="grid gap-3 sm:grid-cols-2">
-              <CustomSelect
-                name="service"
-                value={fields.service}
-                onChange={set("service") as (v: string) => void}
-                options={[
-                  { value: "site", label: "Разработка сайта" },
-                  { value: "bot", label: "Telegram / чат-бот" },
-                  { value: "automation", label: "Автоматизация / интеграции" },
-                  { value: "support", label: "Поддержка и сопровождение" },
-                ]}
-              />
-              <CustomSelect
-                name="contactWay"
-                value={fields.contactWay}
-                onChange={set("contactWay") as (v: string) => void}
-                options={[
-                  { value: "telegram", label: "Связь через Telegram" },
-                  { value: "whatsapp", label: "Связь через WhatsApp/Max" },
-                  { value: "email", label: "Связь через Email" },
-                ]}
-              />
-            </div>
-
             <div>
-              {fields.contactWay === "whatsapp" ? (
-                <div className="grid gap-3 sm:grid-cols-[140px_1fr]">
+              {fields.contactWay === "whatsapp" || fields.contactWay === "max" ? (
+                <div className="grid gap-3 sm:grid-cols-[160px_1fr]">
                   <CustomSelect
                     name="countryCode"
                     value={fields.countryCode}
@@ -208,7 +198,7 @@ export function LeadModal({ open, onClose }: { open: boolean; onClose: () => voi
                   <input
                     value={fields.contact}
                     onChange={(e) => set("contact")(e.target.value)}
-                    placeholder="Номер телефона"
+                    placeholder="Номер телефона (без кода страны)"
                     className="field-control"
                   />
                 </div>
@@ -216,19 +206,61 @@ export function LeadModal({ open, onClose }: { open: boolean; onClose: () => voi
                 <input
                   value={fields.contact}
                   onChange={(e) => set("contact")(e.target.value)}
-                  placeholder={fields.contactWay === "email" ? "Email для ответа" : "Telegram username (@username)"}
+                  placeholder="Telegram username (@username)"
                   className="field-control"
                 />
               )}
               {errors.contact && <p className="mt-1 text-xs text-red-300">{errors.contact}</p>}
             </div>
 
+            <div className="grid gap-3 sm:grid-cols-2">
+              <div>
+                <CustomSelect
+                  name="service"
+                  value={fields.service}
+                  onChange={set("service") as (v: string) => void}
+                  options={[
+                    { value: "site", label: "Разработка сайта" },
+                    { value: "bot", label: "Telegram / чат-бот" },
+                    { value: "automation", label: "Автоматизация / интеграции" },
+                    { value: "support", label: "Поддержка и сопровождение" },
+                  ]}
+                />
+                {errors.service && <p className="mt-1 text-xs text-red-300">{errors.service}</p>}
+              </div>
+              <input
+                value={fields.budget}
+                onChange={(e) => set("budget")(e.target.value)}
+                placeholder="Бюджет (опц.)"
+                className="field-control"
+              />
+            </div>
+
+            <div className="grid gap-3 sm:grid-cols-2">
+              <input
+                value={fields.deadline}
+                onChange={(e) => set("deadline")(e.target.value)}
+                placeholder="Желаемый срок (опц.)"
+                className="field-control"
+              />
+              <CustomSelect
+                name="contactWay"
+                value={fields.contactWay}
+                onChange={set("contactWay") as (v: string) => void}
+                options={[
+                  { value: "telegram", label: "Связь через Telegram" },
+                  { value: "whatsapp", label: "Связь через WhatsApp" },
+                  { value: "max", label: "Связь через Max" },
+                ]}
+              />
+            </div>
+
             <div>
               <textarea
                 value={fields.message}
                 onChange={(e) => set("message")(e.target.value)}
-                placeholder="Сообщение"
-                className="field-control min-h-28"
+                placeholder="Кратко опишите задачу, текущую ситуацию и ожидаемый результат"
+                className="field-control min-h-36"
               />
               {errors.message && <p className="mt-1 text-xs text-red-300">{errors.message}</p>}
             </div>
@@ -240,7 +272,7 @@ export function LeadModal({ open, onClose }: { open: boolean; onClose: () => voi
                 onChange={(e) => set("consent")(e.target.checked)}
                 className="check-control"
               />
-              <span>Согласен(на) на обработку персональных данных.</span>
+              <span>Согласен(на) на обработку персональных данных и получение ответа по указанным контактам.</span>
             </label>
             {errors.consent && <p className="-mt-2 text-xs text-red-300">{errors.consent}</p>}
 
@@ -248,8 +280,10 @@ export function LeadModal({ open, onClose }: { open: boolean; onClose: () => voi
               disabled={submitting}
               className="btn-primary w-full justify-center disabled:opacity-60 disabled:cursor-not-allowed"
             >
-              {submitting ? "Отправка..." : sent ? "Отправлено ✓" : "Отправить"}
+              {submitting ? "Отправка..." : sent ? "Заявка отправлена! ✓" : "Отправить"}
             </button>
+            
+            <p className="text-xs text-gray-400">Обычно отвечаю в течение 1 часа в рабочее время.</p>
           </motion.form>
         </motion.div>
       )}
