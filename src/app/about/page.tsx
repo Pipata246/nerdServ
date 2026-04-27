@@ -5,8 +5,17 @@ import { Reveal } from "@/components/animated/reveal";
 import { SVGSprinkles } from "@/components/ui/svg-sprinkles";
 
 export const metadata: Metadata = {
-  title: "Обо мне | NerdServ",
-  description: "Опыт, навыки и подход к разработке цифровых решений."
+  title: "О разработчике — Fullstack-разработчик сайтов и ботов | NerdServ",
+  description: "Fullstack-разработчик с опытом 40+ проектов. Специализация: Next.js, React, Node.js, Python, Telegram-боты. Разработка сайтов под ключ с гарантией.",
+  keywords: "fullstack разработчик, веб разработчик, разработчик сайтов, программист фриланс, nerdserv разработчик",
+  alternates: {
+    canonical: 'https://nerdserv.pro/about',
+  },
+  openGraph: {
+    title: 'О разработчике — Fullstack-разработчик | NerdServ',
+    description: '40+ реализованных проектов. Стек: Next.js, React, Node.js, Python. Гарантия 14 дней.',
+    url: 'https://nerdserv.pro/about',
+  },
 };
 
 export default function AboutPage() {

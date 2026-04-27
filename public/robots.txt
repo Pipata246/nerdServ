@@ -1,6 +1,9 @@
 User-agent: *
 Allow: /
 Disallow: /api/
-Disallow: /.env*
 
-Sitemap: https://your-domain.com/sitemap.xml
+User-agent: Yandex
+Allow: /
+
+Sitemap: https://nerdserv.pro/sitemap.xml
+Host: https://nerdserv.pro

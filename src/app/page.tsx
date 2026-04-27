@@ -7,12 +7,55 @@ import { services, cases } from "@/data/site-data";
 import { TestimonialsSlider } from "@/components/sections/testimonials-slider";
 import { SVGSprinkles } from "@/components/ui/svg-sprinkles";
 import { SalesProof } from "@/components/sections/sales-proof";
+import Script from "next/script";
 
 export default function HomePage() {
   const basicServices = services.filter((item) => item.category === "basic");
 
+  // Structured data для главной страницы
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: 'NerdServ',
+    url: 'https://nerdserv.pro',
+    potentialAction: {
+      '@type': 'SearchAction',
+      target: 'https://nerdserv.pro/services?q={search_term_string}',
+      'query-input': 'required name=search_term_string',
+    },
+  };
+
+  const servicesJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    itemListElement: basicServices.map((service, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      item: {
+        '@type': 'Service',
+        name: service.title,
+        description: service.description,
+        provider: {
+          '@type': 'Organization',
+          name: 'NerdServ',
+        },
+      },
+    })),
+  };
+
   return (
     <>
+      <Script
+        id="homepage-jsonld"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <Script
+        id="services-jsonld"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(servicesJsonLd) }}
+      />
+      
       <section className="section">
         <div className="container-main">
           <motion.div

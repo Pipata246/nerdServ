@@ -56,7 +56,8 @@ export async function POST(request: NextRequest) {
     if (process.env.NODE_ENV === 'production') {
       const allowedOrigins = [
         `https://${host}`,
-        'https://your-domain.vercel.app', // замените на ваш домен
+        'https://nerdserv.pro',
+        'https://www.nerdserv.pro',
       ];
       
       if (!origin || !allowedOrigins.includes(origin)) {

@@ -4,8 +4,17 @@ import { Reveal } from "@/components/animated/reveal";
 import { SalesProof } from "@/components/sections/sales-proof";
 
 export const metadata: Metadata = {
-  title: "Услуги | NerdServ",
-  description: "Разработка сайтов, Telegram-ботов и автоматизация бизнес-процессов."
+  title: "Услуги по разработке сайтов и ботов | NerdServ",
+  description: "Разработка сайтов под ключ: лендинги, корпоративные сайты, интернет-магазины. Telegram-боты для бизнеса. Автоматизация процессов. Цены от 25 000 ₽.",
+  keywords: "разработка сайтов цена, заказать разработку сайта, создание сайтов под ключ, разработка лендинга, telegram бот разработка, автоматизация бизнеса",
+  alternates: {
+    canonical: 'https://nerdserv.pro/services',
+  },
+  openGraph: {
+    title: 'Услуги по разработке сайтов и ботов | NerdServ',
+    description: 'Разработка сайтов под ключ от 40 000 ₽. Telegram-боты от 25 000 ₽. Автоматизация от 30 000 ₽.',
+    url: 'https://nerdserv.pro/services',
+  },
 };
 
 export default function ServicesPage() {
