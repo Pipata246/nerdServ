@@ -20,20 +20,6 @@ export const metadata: Metadata = {
     siteName: 'NerdServ',
     title: 'NerdServ — Разработка сайтов и Telegram-ботов под ключ',
     description: 'Профессиональная разработка сайтов, Telegram-ботов и автоматизация процессов. Лендинги от 40 000 ₽. Гарантия 14 дней.',
-    images: [
-      {
-        url: '/images/og-image.png',
-        width: 1200,
-        height: 630,
-        alt: 'NerdServ — Разработка сайтов',
-      },
-    ],
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'NerdServ — Разработка сайтов и Telegram-ботов',
-    description: 'Профессиональная разработка сайтов, ботов и автоматизация. От 40 000 ₽.',
-    images: ['/images/og-image.png'],
   },
   robots: {
     index: true,
