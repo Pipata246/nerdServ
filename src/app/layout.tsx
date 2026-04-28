@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { SiteShell } from "@/components/layout/site-shell";
+import { Analytics } from '@vercel/analytics/react';
 
 export const metadata: Metadata = {
   title: "NerdServ — Разработка сайтов и Telegram-ботов под ключ | Создание сайтов",
@@ -80,6 +81,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       </head>
       <body>
         <SiteShell>{children}</SiteShell>
+        <Analytics />
       </body>
     </html>
   );
