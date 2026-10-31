@@ -56,8 +56,8 @@ export async function POST(request: NextRequest) {
     if (process.env.NODE_ENV === 'production') {
       const allowedOrigins = [
         `https://${host}`,
-        'https://nerdserv.pro',
-        'https://www.nerdserv.pro',
+        'https://nerdserv.tech',
+        'https://www.nerdserv.tech',
       ];
       
       if (!origin || !allowedOrigins.includes(origin)) {

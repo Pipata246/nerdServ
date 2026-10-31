@@ -7,12 +7,12 @@ export const metadata: Metadata = {
   description: "Свяжитесь для заказа разработки сайта, Telegram-бота или автоматизации. Telegram: @nerdServ, WhatsApp: +7 (964) 986-67-41. Ответ в течение 1 часа.",
   keywords: "заказать сайт, заказать разработку, контакты разработчика, связаться с разработчиком, nerdserv контакты",
   alternates: {
-    canonical: 'https://nerdserv.pro/contact',
+    canonical: 'https://nerdserv.tech/contact',
   },
   openGraph: {
     title: 'Контакты — Заказать разработку сайта | NerdServ',
     description: 'Оставьте заявку на разработку. Ответ в течение 1 часа. Бесплатная консультация.',
-    url: 'https://nerdserv.pro/contact',
+    url: 'https://nerdserv.tech/contact',
   },
 };
 

@@ -18,10 +18,10 @@ export default function HomePage() {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
     name: 'NerdServ',
-    url: 'https://nerdserv.pro',
+    url: 'https://nerdserv.tech',
     potentialAction: {
       '@type': 'SearchAction',
-      target: 'https://nerdserv.pro/services?q={search_term_string}',
+      target: 'https://nerdserv.tech/services?q={search_term_string}',
       'query-input': 'required name=search_term_string',
     },
   };

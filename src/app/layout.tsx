@@ -11,17 +11,31 @@ export const metadata: Metadata = {
   authors: [{ name: "NerdServ" }],
   creator: "NerdServ",
   publisher: "NerdServ",
-  metadataBase: new URL('https://nerdserv.pro'),
+  metadataBase: new URL('https://nerdserv.tech'),
   alternates: {
-    canonical: 'https://nerdserv.pro',
+    canonical: 'https://nerdserv.tech',
   },
   openGraph: {
     type: 'website',
     locale: 'ru_RU',
-    url: 'https://nerdserv.pro',
+    url: 'https://nerdserv.tech',
     siteName: 'NerdServ',
     title: 'NerdServ — Разработка сайтов и Telegram-ботов под ключ',
     description: 'Профессиональная разработка сайтов, Telegram-ботов и автоматизация процессов. Лендинги от 40 000 ₽. Гарантия 14 дней.',
+    images: [
+      {
+        url: 'https://nerdserv.tech/images/avatar.png',
+        width: 1200,
+        height: 630,
+        alt: 'NerdServ — Разработка сайтов и Telegram-ботов',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'NerdServ — Разработка сайтов и Telegram-ботов под ключ',
+    description: 'Профессиональная разработка сайтов, Telegram-ботов и автоматизация процессов. Лендинги от 40 000 ₽.',
+    images: ['https://nerdserv.tech/images/avatar.png'],
   },
   robots: {
     index: true,
@@ -36,6 +50,7 @@ export const metadata: Metadata = {
   },
   verification: {
     yandex: 'your-yandex-verification-code',
+    google: 'your-google-verification-code',
   },
 };
 
@@ -44,8 +59,8 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     '@context': 'https://schema.org',
     '@type': 'Organization',
     name: 'NerdServ',
-    url: 'https://nerdserv.pro',
-    logo: 'https://nerdserv.pro/images/avatar.png',
+    url: 'https://nerdserv.tech',
+    logo: 'https://nerdserv.tech/images/avatar.png',
     description: 'Профессиональная разработка сайтов, Telegram-ботов и автоматизация бизнеса',
     address: {
       '@type': 'PostalAddress',
@@ -58,6 +73,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     },
     sameAs: [
       'https://t.me/nerdserv',
+      'https://www.instagram.com/c.ler.c/',
     ],
     offers: {
       '@type': 'AggregateOffer',
@@ -75,6 +91,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     <html lang="ru" suppressHydrationWarning>
       <head>
         <link rel="preload" href="/images/avatar.png" as="image" />
+        <link rel="icon" href="/images/avatar.png" />
         <script
           type="application/ld+json"
           suppressHydrationWarning
