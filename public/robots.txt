@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+
+User-agent: Yandex
+Allow: /
+
+Sitemap: https://nerdserv.pro/sitemap.xml
+Host: https://nerdserv.pro
