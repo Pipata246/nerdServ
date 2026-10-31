@@ -56,7 +56,7 @@ export function Footer() {
               </svg>
             </Link>
             <Link
-              href="https://www.instagram.com/nerd1dk/"
+              href="https://www.instagram.com/c.ler.c/"
               target="_blank"
               rel="noopener noreferrer"
               className="transition hover:text-lime-300"

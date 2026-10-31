@@ -308,7 +308,7 @@ export function ContactContent() {
             Telegram-канал: @nerdServv
           </Link>
           <Link
-            href="https://www.instagram.com/nerd1dk/"
+            href="https://www.instagram.com/c.ler.c/"
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center gap-3 rounded-xl border border-white/10 p-3 transition hover:bg-white/5"
@@ -318,7 +318,7 @@ export function ContactContent() {
               <circle cx="12" cy="12" r="4" />
               <circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none" />
             </svg>
-            Instagram: @nerd1dk
+            Instagram: @c.ler.c
           </Link>
           <div className="rounded-xl border border-white/10 bg-black/20 p-4">
             <p className="text-sm font-medium">Что будет после отправки:</p>
