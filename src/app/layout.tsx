@@ -91,7 +91,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     <html lang="ru" suppressHydrationWarning>
       <head>
         <link rel="preload" href="/images/avatar.png" as="image" />
-        <link rel="icon" href="/images/avatar.png" />
+        <link rel="icon" href="/images/123.jpg" />
         <script
           type="application/ld+json"
           suppressHydrationWarning
