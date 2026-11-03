@@ -7,7 +7,6 @@ import { TelegramFloat } from "@/components/ui/telegram-float";
 import { LeadModal } from "@/components/ui/lead-modal";
 import { Loader } from "@/components/ui/loader";
 import { BackgroundCode } from "@/components/ui/background-code";
-import { ScrollProgress } from "@/components/ui/scroll-progress";
 
 export function SiteShell({ children }: { children: ReactNode }) {
   const [openLead, setOpenLead] = useState(false);
@@ -24,7 +23,6 @@ export function SiteShell({ children }: { children: ReactNode }) {
 
   return (
     <div className="relative isolate min-h-screen overflow-x-clip">
-      <ScrollProgress />
       <Loader loading={loading} />
       <BackgroundCode />
       <div className="relative z-20">
