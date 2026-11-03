@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     description: 'Профессиональная разработка сайтов, Telegram-ботов и автоматизация процессов. Лендинги от 40 000 ₽. Гарантия 14 дней.',
     images: [
       {
-        url: 'https://nerdserv.tech/images/avatar.png',
+        url: 'https://nerdserv.tech/images/123.jpg',
         width: 1200,
         height: 630,
         alt: 'NerdServ — Бизнес-решения и веб-разработка',
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'NerdServ — Бизнес-решения и веб-разработка',
     description: 'Профессиональная разработка сайтов, Telegram-ботов и автоматизация процессов. Лендинги от 40 000 ₽.',
-    images: ['https://nerdserv.tech/images/avatar.png'],
+    images: ['https://nerdserv.tech/images/123.jpg'],
   },
   robots: {
     index: true,
@@ -60,7 +60,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     '@type': 'Organization',
     name: 'NerdServ',
     url: 'https://nerdserv.tech',
-    logo: 'https://nerdserv.tech/images/avatar.png',
+    logo: 'https://nerdserv.tech/images/123.jpg',
     description: 'Профессиональная разработка сайтов, Telegram-ботов и автоматизация бизнеса',
     address: {
       '@type': 'PostalAddress',
@@ -90,7 +90,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="ru" suppressHydrationWarning>
       <head>
-        <link rel="preload" href="/images/avatar.png" as="image" />
+        <link rel="preload" href="/images/123.jpg" as="image" />
         <link rel="icon" href="/images/123.jpg" />
         <script
           type="application/ld+json"

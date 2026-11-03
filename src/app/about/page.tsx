@@ -40,7 +40,7 @@ export default function AboutPage() {
                 <div className="pointer-events-none absolute inset-0 z-10 rounded-xl ring-1 ring-lime-300/20" />
                 <div className="pointer-events-none absolute -bottom-8 left-1/2 z-0 h-40 w-64 -translate-x-1/2 rounded-full bg-lime-300/15 blur-3xl" />
                 <Image
-                  src="/images/avatar.png"
+                  src="/images/123.jpg"
                   alt="Фото разработчика"
                   width={600}
                   height={400}
