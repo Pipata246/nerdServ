@@ -60,7 +60,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     '@type': 'Organization',
     name: 'NerdServ',
     url: 'https://nerdserv.tech',
-    logo: 'https://nerdserv.tech/images/123.jpg',
+    logo: 'https://nerdserv.tech/images/avatar.png',
     description: 'Профессиональная разработка сайтов, Telegram-ботов и автоматизация бизнеса',
     address: {
       '@type': 'PostalAddress',
@@ -90,8 +90,8 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="ru" suppressHydrationWarning>
       <head>
-        <link rel="preload" href="/images/123.jpg" as="image" />
-        <link rel="icon" href="/images/123.jpg" />
+        <link rel="preload" href="/images/avatar.png" as="image" />
+        <link rel="icon" href="/images/avatar.png" />
         <script
           type="application/ld+json"
           suppressHydrationWarning
