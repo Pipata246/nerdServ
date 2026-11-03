@@ -3,24 +3,18 @@
 import { useEffect, useState } from "react";
 import { motion, useScroll, useSpring } from "framer-motion";
 
-export function ScrollProgress() {
-  const [isClient, setIsClient] = useState(false);
-  const [isReady, setIsReady] = useState(false);
+/**
+ * Сама полоса прогресса. Хуки useScroll/useSpring живут здесь и
+ * создаются только когда компонент смонтирован, поэтому измерения
+ * скролла всегда снимаются при уже стабильной высоте страницы.
+ */
+function ScrollProgressBar() {
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, {
     stiffness: 100,
     damping: 50,
-    restDelta: 0.001
+    restDelta: 0.001,
   });
-
-  useEffect(() => {
-    setIsClient(true);
-    // Add small delay to prevent jump on initial load
-    const timer = setTimeout(() => setIsReady(true), 100);
-    return () => clearTimeout(timer);
-  }, []);
-
-  if (!isClient || !isReady) return null;
 
   return (
     <motion.div
@@ -35,4 +29,38 @@ export function ScrollProgress() {
       }}
     />
   );
+}
+
+export function ScrollProgress() {
+  const [isReady, setIsReady] = useState(false);
+
+  useEffect(() => {
+    let frame = 0;
+
+    // Показываем полосу только после полной загрузки страницы.
+    // До этого scrollHeight нестабилен (грузятся картинки/шрифты),
+    // из-за чего scrollYProgress в самом начале "дёргается" вверх-вниз.
+    // После load высота документа стабильна, и пружина работает плавно.
+    const ready = () => {
+      frame = window.requestAnimationFrame(() => setIsReady(true));
+    };
+
+    if (document.readyState === "complete") {
+      ready();
+    } else {
+      window.addEventListener("load", ready, { once: true });
+    }
+
+    // Подстраховка: если событие load по какой-то причине не придёт.
+    const fallback = window.setTimeout(ready, 1500);
+
+    return () => {
+      window.removeEventListener("load", ready);
+      window.cancelAnimationFrame(frame);
+      window.clearTimeout(fallback);
+    };
+  }, []);
+
+  if (!isReady) return null;
+  return <ScrollProgressBar />;
 }

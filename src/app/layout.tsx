@@ -5,7 +5,7 @@ import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 
 export const metadata: Metadata = {
-  title: "NerdServ — Разработка сайтов и Telegram-ботов под ключ | Создание сайтов",
+  title: "NerdServ — Бизнес-решения и веб-разработка",
   description: "Разработка сайтов, создание Telegram-ботов и автоматизация бизнеса. Лендинги, корпоративные сайты, интернет-магазины. Быстро, качественно, с гарантией. От 40 000 ₽.",
   keywords: "разработка сайтов, создание сайтов, разработка сайта, создать сайт, заказать сайт, сделать сайт, разработка веб сайтов, создание веб сайтов, разработка лендинга, telegram бот, nerdserv, нердсерв",
   authors: [{ name: "NerdServ" }],
@@ -20,20 +20,20 @@ export const metadata: Metadata = {
     locale: 'ru_RU',
     url: 'https://nerdserv.tech',
     siteName: 'NerdServ',
-    title: 'NerdServ — Разработка сайтов и Telegram-ботов под ключ',
+    title: 'NerdServ — Бизнес-решения и веб-разработка',
     description: 'Профессиональная разработка сайтов, Telegram-ботов и автоматизация процессов. Лендинги от 40 000 ₽. Гарантия 14 дней.',
     images: [
       {
         url: 'https://nerdserv.tech/images/avatar.png',
         width: 1200,
         height: 630,
-        alt: 'NerdServ — Разработка сайтов и Telegram-ботов',
+        alt: 'NerdServ — Бизнес-решения и веб-разработка',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'NerdServ — Разработка сайтов и Telegram-ботов под ключ',
+    title: 'NerdServ — Бизнес-решения и веб-разработка',
     description: 'Профессиональная разработка сайтов, Telegram-ботов и автоматизация процессов. Лендинги от 40 000 ₽.',
     images: ['https://nerdserv.tech/images/avatar.png'],
   },

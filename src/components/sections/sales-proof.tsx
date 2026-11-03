@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { CheckCircle2, Clock3, Rocket, ShieldCheck } from "lucide-react";
+import { REVEAL_TRANSITION, REVEAL_VIEWPORT } from "@/components/animated/animation-config";
 
 const metrics = [
   { value: "40+", label: "реализованных проектов" },
@@ -37,8 +38,8 @@ export function SalesProof() {
             key={item.label}
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: false, amount: 0.5 }}
-            transition={{ duration: 0.45, delay: i * 0.08 }}
+            viewport={REVEAL_VIEWPORT}
+            transition={{ ...REVEAL_TRANSITION, delay: i * 0.08 }}
             className="rounded-xl border border-white/10 bg-black/25 p-4"
           >
             <p className="text-2xl font-bold text-lime-300">{item.value}</p>

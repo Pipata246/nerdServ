@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { ReactNode } from "react";
+import { REVEAL_TRANSITION, REVEAL_VIEWPORT } from "./animation-config";
 
 type RevealEnhancedProps = {
   children: ReactNode;
@@ -11,12 +12,12 @@ type RevealEnhancedProps = {
   distance?: number;
 };
 
-export function RevealEnhanced({ 
-  children, 
-  delay = 0, 
+export function RevealEnhanced({
+  children,
+  delay = 0,
   direction = "up",
   className,
-  distance = 50
+  distance = 50,
 }: RevealEnhancedProps) {
   const getInitialPosition = () => {
     switch (direction) {
@@ -32,21 +33,13 @@ export function RevealEnhanced({
     }
   };
 
-  const getFinalPosition = () => {
-    return { x: 0, y: 0, opacity: 1 };
-  };
-
   return (
     <motion.div
       className={className}
       initial={getInitialPosition()}
-      whileInView={getFinalPosition()}
-      viewport={{ once: false, amount: 0.15, margin: "-50px" }}
-      transition={{ 
-        duration: 0.8, 
-        delay,
-        ease: [0.25, 0.1, 0.25, 1] // Custom cubic-bezier for smooth feel
-      }}
+      whileInView={{ x: 0, y: 0, opacity: 1 }}
+      viewport={REVEAL_VIEWPORT}
+      transition={{ ...REVEAL_TRANSITION, delay }}
     >
       {children}
     </motion.div>
