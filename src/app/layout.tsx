@@ -4,37 +4,102 @@ import { SiteShell } from "@/components/layout/site-shell";
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 
-const jsonLd = {
-  '@context': 'https://schema.org',
-  '@type': 'Organization',
-  name: 'NerdServ',
-  url: 'https://nerdserv.tech',
-  logo: 'https://nerdserv.tech/images/avatar.png',
-  description: 'Профессиональная разработка сайтов, Telegram-ботов и автоматизация бизнеса',
-  address: {
-    '@type': 'PostalAddress',
-    addressCountry: 'RU',
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    name: 'NerdServ',
+    url: 'https://nerdserv.tech',
+    logo: 'https://nerdserv.tech/images/avatar.png',
+    description: 'Профессиональная разработка сайтов, Telegram-ботов и автоматизация бизнеса',
+    address: {
+      '@type': 'PostalAddress',
+      addressCountry: 'RU',
+    },
+    contactPoint: {
+      '@type': 'ContactPoint',
+      contactType: 'Customer Service',
+      availableLanguage: ['Russian'],
+    },
+    sameAs: [
+      'https://t.me/nerdserv',
+      'https://www.instagram.com/c.ler.c/',
+    ],
+    offers: {
+      '@type': 'AggregateOffer',
+      priceCurrency: 'RUB',
+      lowPrice: '40000',
+      offerCount: '3',
+    },
+    areaServed: {
+      '@type': 'Country',
+      name: 'Russia',
+    },
   },
-  contactPoint: {
-    '@type': 'ContactPoint',
-    contactType: 'Customer Service',
-    availableLanguage: ['Russian'],
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: 'NerdServ',
+    url: 'https://nerdserv.tech',
+    potentialAction: {
+      '@type': 'SearchAction',
+      target: 'https://nerdserv.tech/?q={search_term_string}',
+      'query-input': 'required name=search_term_string',
+    },
   },
-  sameAs: [
-    'https://t.me/nerdserv',
-    'https://www.instagram.com/c.ler.c/',
-  ],
-  offers: {
-    '@type': 'AggregateOffer',
-    priceCurrency: 'RUB',
-    lowPrice: '40000',
-    offerCount: '3',
+  {
+    '@context': 'https://schema.org',
+    '@type': 'SiteLinksSearchBox',
+    url: 'https://nerdserv.tech',
+    potentialAction: {
+      '@type': 'SearchAction',
+      target: 'https://nerdserv.tech/?q={search_term_string}',
+      'query-input': 'required name=search_term_string',
+    },
   },
-  areaServed: {
-    '@type': 'Country',
-    name: 'Russia',
+  {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name: 'Разделы сайта NerdServ',
+    itemListElement: [
+      {
+        '@type': 'SiteNavigationElement',
+        position: 1,
+        name: 'Услуги',
+        description: 'Разработка сайтов, Telegram-ботов и автоматизация бизнеса',
+        url: 'https://nerdserv.tech/services',
+      },
+      {
+        '@type': 'SiteNavigationElement',
+        position: 2,
+        name: 'Портфолио',
+        description: 'Реализованные проекты: сайты, боты, интеграции',
+        url: 'https://nerdserv.tech/portfolio',
+      },
+      {
+        '@type': 'SiteNavigationElement',
+        position: 3,
+        name: 'Обо мне',
+        description: 'Fullstack-разработчик и UX/UI-дизайнер',
+        url: 'https://nerdserv.tech/about',
+      },
+      {
+        '@type': 'SiteNavigationElement',
+        position: 4,
+        name: 'Ваш кейс',
+        description: 'Подбор решения под вашу задачу',
+        url: 'https://nerdserv.tech/your-case',
+      },
+      {
+        '@type': 'SiteNavigationElement',
+        position: 5,
+        name: 'Контакты',
+        description: 'Связаться с NerdServ',
+        url: 'https://nerdserv.tech/contact',
+      },
+    ],
   },
-};
+];
 
 export const metadata: Metadata = {
   title: "NerdServ — Бизнес-решения и веб-разработка",
