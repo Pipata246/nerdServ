@@ -4,6 +4,38 @@ import { SiteShell } from "@/components/layout/site-shell";
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'NerdServ',
+  url: 'https://nerdserv.tech',
+  logo: 'https://nerdserv.tech/images/avatar.png',
+  description: 'Профессиональная разработка сайтов, Telegram-ботов и автоматизация бизнеса',
+  address: {
+    '@type': 'PostalAddress',
+    addressCountry: 'RU',
+  },
+  contactPoint: {
+    '@type': 'ContactPoint',
+    contactType: 'Customer Service',
+    availableLanguage: ['Russian'],
+  },
+  sameAs: [
+    'https://t.me/nerdserv',
+    'https://www.instagram.com/c.ler.c/',
+  ],
+  offers: {
+    '@type': 'AggregateOffer',
+    priceCurrency: 'RUB',
+    lowPrice: '40000',
+    offerCount: '3',
+  },
+  areaServed: {
+    '@type': 'Country',
+    name: 'Russia',
+  },
+};
+
 export const metadata: Metadata = {
   title: "NerdServ — Бизнес-решения и веб-разработка",
   description: "Разработка сайтов, создание Telegram-ботов и автоматизация бизнеса. Лендинги, корпоративные сайты, интернет-магазины. Быстро, качественно, с гарантией. От 40 000 ₽.",
@@ -52,52 +84,17 @@ export const metadata: Metadata = {
     yandex: 'your-yandex-verification-code',
     google: 'your-google-verification-code',
   },
+  icons: {
+    icon: '/icon.svg',
+  },
+  other: {
+    'script:ld+json': JSON.stringify(jsonLd),
+  },
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  const jsonLd = {
-    '@context': 'https://schema.org',
-    '@type': 'Organization',
-    name: 'NerdServ',
-    url: 'https://nerdserv.tech',
-    logo: 'https://nerdserv.tech/images/avatar.png',
-    description: 'Профессиональная разработка сайтов, Telegram-ботов и автоматизация бизнеса',
-    address: {
-      '@type': 'PostalAddress',
-      addressCountry: 'RU',
-    },
-    contactPoint: {
-      '@type': 'ContactPoint',
-      contactType: 'Customer Service',
-      availableLanguage: ['Russian'],
-    },
-    sameAs: [
-      'https://t.me/nerdserv',
-      'https://www.instagram.com/c.ler.c/',
-    ],
-    offers: {
-      '@type': 'AggregateOffer',
-      priceCurrency: 'RUB',
-      lowPrice: '40000',
-      offerCount: '3',
-    },
-    areaServed: {
-      '@type': 'Country',
-      name: 'Russia',
-    },
-  };
-
   return (
     <html lang="ru" suppressHydrationWarning>
-      <head>
-        <link rel="preload" href="/images/avatar.png" as="image" />
-        <link rel="icon" href="/images/avatar.png" />
-        <script
-          type="application/ld+json"
-          suppressHydrationWarning
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-        />
-      </head>
       <body>
         <SiteShell>{children}</SiteShell>
         <Analytics />
